@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <link rel="stylesheet" href="../src/assets/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="container">
+        <h2>Giriş Yap</h2>
+        <form>
+            <input type="text" placeholder="Kullanıcı Adı" required>
+            <div class="password-container">
+                <input type="password" placeholder="Şifre" id="password" required>
+                <i class="fa-solid fa-eye" id="togglePassword"></i>
+            </div>
+            <button type="submit">Giriş Yap</button>
+        </form>
+        <div class="links">
+            <a href="#">Şifremi Unuttum</a>
+            <a href="kayit.html">Kayıt Ol</a>
+        </div>
+    </div>
+
+    <script src="../src/app.js"></script>
+</html>

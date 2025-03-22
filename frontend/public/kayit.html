@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol</title>
+    <link rel="stylesheet" href="../src/assets/kayit.css">
+    <!-- Font Awesome'ı EKLEDİĞİNİZDEN EMİN OLUN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <h2>Kayıt Ol</h2>
+        <form id="kayitFormu">
+            <div class="form-group">
+                <label for="ad">Ad:</label>
+                <input type="text" id="ad" name="ad" required>
+                <div class="error-message" id="adError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="soyad">Soyad:</label>
+                <input type="text" id="soyad" name="soyad" required>
+                 <div class="error-message" id="soyadError"></div>
+            </div>
+
+             <div class="form-group">
+                <label for="dogumTarihi">Doğum Tarihi:</label>
+                <input type="text" id="dogumTarihi" name="dogumTarihi" required>
+                <div class="error-message" id="dogumTarihiError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="kullaniciAdi">Kullanıcı Adı:</label>
+                <input type="text" id="kullaniciAdi" name="kullaniciAdi" required>
+                <div class="error-message" id="kullaniciAdiError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="sifre">Şifre:</label>
+                <div class="password-container">
+                    <input type="password" id="sifre" name="sifre" required>
+                    <i class="fa-solid fa-eye" id="toggleSifre"></i>
+                </div>
+                <div class="error-message" id="sifreError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="sifreTekrar">Şifre Tekrar:</label>
+                <div class="password-container">
+                    <input type="password" id="sifreTekrar" name="sifreTekrar" required>
+                    <i class="fa-solid fa-eye" id="toggleSifreTekrar"></i>
+                </div>
+                <div class="error-message" id="sifreTekrarError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-posta:</label>
+                <input type="email" id="email" name="email" required>
+                 <div class="error-message" id="emailError"></div>
+            </div>
+
+            <button type="submit">Kayıt Ol</button>
+        </form>
+    </div>
+    <script src="../frontend/src/kayit.js" type="module"></script>
+    <script src="../frontend/src/server.js" type="module"></script>
+
+</html>

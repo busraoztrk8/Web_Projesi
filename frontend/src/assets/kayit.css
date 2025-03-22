@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Önemli: Tüm ekranı kaplaması için */
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Genişlik artırıldı */
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left; /* Etiketleri sola hizala */
+}
+
+.form-group label {
+    display: block; /* Etiketi blok eleman yap */
+    margin-bottom: 5px; /* Etiket ile input arası boşluk */
+    font-weight: bold; /* Etiketi kalın yap */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"]
+
+{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none; /* Başlangıçta gizli */
+}
+
+
+
+/* ... (Önceki CSS kodlarınız) ... */
+
+.password-container {
+    position: relative;
+    width: 100%; /* ÖNEMLİ: input ile aynı genişlikte olmalı */
+}
+
+.password-container input[type="password"] {
+    width: 100%; /* Tam genişlik */
+    padding-right: 40px;  /* İkon için sağda boşluk */
+      padding: 12px; /* İç boşluk */
+    box-sizing: border-box; /* ÖNEMLİ */
+    border: 1px solid #ddd; /* Kenarlık */
+    border-radius: 4px;     /* Yuvarlak köşe */
+}
+
+.password-container i {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #777;
+}
+
+/* Kapalı göz ikonu stili */
+.password-container .fa-eye-slash {
+    color: #aaa;
+}
+
+/* input genişliklerini düzenle (form-group içinde) */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group input[type="number"]
+{
+    width: 100%; /* Form-group'un genişliğini kaplasın */
+    /* Diğer stiller aynı kalabilir */
+}
