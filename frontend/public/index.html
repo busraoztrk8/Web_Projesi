@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kişisel Günlük & Planlayıcı</title>
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Dosyası -->
+    <link rel="stylesheet" href="../src/assets/index.css">
+    <!-- İkonlar için Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link active" aria-current="page">ANASAYFA</a></li>
+                <li><a href="pomodoro.html" class="nav-link">POMODORO</a></li>
+                <li><a href="#" class="nav-link">GÜNLÜK LİSTESİ</a></li>
+            </ul>
+        </nav>
+        <div class="header-controls">
+            <!-- Renk Seçici -->
+            <div class="color-picker-container">
+                <button id="bg-color-picker-toggle" class="theme-button" aria-label="Arka Plan Rengini Seç">
+                    <i class="fas fa-fill-drip"></i>
+                </button>
+                <div id="bg-color-picker-popover" class="color-picker-popover card">
+                     <label for="custom-bg-color-input">Arka Plan Rengi Seç:</label>
+                     <input type="color" id="custom-bg-color-input" value="#f8f9fa">
+                     <button id="reset-bg-color-button" class="button secondary small">Temaya Sıfırla</button>
+                </div>
+            </div>
+            <!-- Tema Değiştirici -->
+            <button id="theme-toggle" class="theme-button" aria-label="Temayı Değiştir">
+                <i class="fas fa-moon"></i>
+            </button>
+            <!-- Profil -->
+            <div id="user-profile" class="profile-icon" role="button" tabindex="0" aria-label="Kullanıcı Profili">
+                <i class="fas fa-user"></i>
+            </div>
+             <!-- Çıkış -->
+             <button id="logout-button" class="logout-button" aria-label="Çıkış Yap">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="welcome-section">
+            <h2>Hoş geldin, <span id="username">[Kullanıcı Adı]</span>!</h2>
+        </section>
+
+        <div class="content-grid">
+            <section class="planner-section card">
+                <h3><i class="fas fa-calendar-alt"></i> TARİH PLANLAYICI</h3>
+                <p>Gelecek etkinlikleriniz için hatırlatıcılar oluşturun.</p>
+
+                <form id="planner-form" class="planner-form">
+                    <div class="form-group">
+                        <label for="planner-date">Tarih:</label>
+                        <input type="date" id="planner-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="planner-time">Saat:</label>
+                        <input type="time" id="planner-time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="planner-description">Açıklama:</label>
+                        <input type="text" id="planner-description" placeholder="Etkinlik açıklaması..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="planner-email">Bildirim E-postası (Demo):</label>
+                        <input type="email" id="planner-email" placeholder="eposta@adresiniz.com" required>
+                    </div>
+                     <!-- <<< YENİ: Feedback Alanı >>> -->
+                     <div id="planner-feedback" class="form-feedback" aria-live="polite"></div>
+                    <button type="submit" id="add-reminder-button" class="button primary full-width">
+                        <i class="fas fa-plus"></i> Hatırlatıcı Ekle
+                    </button>
+                </form>
+
+                 <div class="reminders-area">
+                    <h4><i class="fas fa-bell"></i> Kayıtlı Hatırlatıcılar</h4>
+                    <ul id="reminder-list" class="reminder-list">
+                        <!-- Hatırlatıcılar buraya JS ile eklenecek -->
+                        <li class="no-reminders">Henüz hatırlatıcı eklenmemiş.</li>
+                    </ul>
+                 </div>
+            </section>
+
+            <aside class="sidebar">
+                <section class="mood-stats-section card">
+                    <h4><i class="fas fa-chart-line"></i> HAFTALIK DUYGU DURUMU</h4>
+                    <div class="placeholder-content chart-placeholder">
+                        Duygu Durumu Grafiği Alanı
+                    </div>
+                    <p>Haftalık istatistikleriniz burada görünecek.</p>
+                </section>
+
+                <section class="visuals-section card">
+                    <h4><i class="fas fa-images"></i> GÖRSELLER</h4>
+                    <!-- <<< DEĞİŞTİ: Slideshow Konteyneri >>> -->
+                    <div id="slideshow-container" class="image-slideshow-container">
+                         <img src="" alt="İlham Veren Doğa Görseli" id="inspiration-image" class="inspiration-image">
+                    </div>
+                    <p>Günün ilham veren veya sakinleştirici görseli.</p>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <button id="add-entry-button" class="add-button" aria-label="Yeni Günlük Ekle">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <script src="../src/index.js"></script>
+
+</body>
+</html>

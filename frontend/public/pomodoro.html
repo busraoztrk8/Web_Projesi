@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Zamanlayıcı - Kişisel Günlük & Planlayıcı</title>
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- İkonlar için Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Gerekli CSS Dosyaları -->
+    <link rel="stylesheet" href="../src/assets/index.css"> <!-- Ana stil dosyası -->
+    <link rel="stylesheet" href="../src/assets/pomodoro.css"> <!-- Pomodoro özel stil dosyası -->
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">ANASAYFA</a></li>
+                <li><a href="pomodoro.html" class="nav-link active" aria-current="page">POMODORO</a></li>
+                <li><a href="#" class="nav-link">GÜNLÜK LİSTESİ</a></li>
+            </ul>
+        </nav>
+         <div class="header-controls">
+            <!-- <<< DEĞİŞTİ: Renk Seçici Etiketi ve ID >>> -->
+            <div class="color-picker-container">
+                <button id="bg-color-picker-toggle" class="theme-button" aria-label="Arka Plan Rengini Seç">
+                     <i class="fas fa-fill-drip"></i>
+                </button>
+                <div id="bg-color-picker-popover" class="color-picker-popover card">
+                     <label for="custom-bg-color-input">Arka Plan Rengi Seç:</label>
+                     <input type="color" id="custom-bg-color-input" value="#f8f9fa"> <!-- Varsayılan AÇIK tema arkaplanı -->
+                     <button id="reset-bg-color-button" class="button secondary small">Temaya Sıfırla</button>
+                </div>
+            </div>
+            <!-- Tema Değiştirici -->
+            <button id="theme-toggle" class="theme-button" aria-label="Temayı Değiştir">
+                <i class="fas fa-moon"></i>
+            </button>
+            <!-- Profil -->
+            <div id="user-profile" class="profile-icon" role="button" tabindex="0" aria-label="Kullanıcı Profili">
+                <i class="fas fa-user"></i>
+            </div>
+             <!-- Çıkış -->
+             <button id="logout-button" class="logout-button" aria-label="Çıkış Yap">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Pomodoro Uygulaması İçeriği -->
+    <main class="pomodoro-main-container">
+        <!-- ... pomodoro içeriği aynı ... -->
+         <div id="pomodoro-app" class="pomodoro-app card">
+            <div class="settings-panel">
+                 <h4><i class="fas fa-cog"></i> Zamanlayıcı Ayarları</h4>
+                 <div class="setting-item">
+                     <label for="focus-duration">Odaklanma (dk):</label>
+                     <input type="number" id="focus-duration" min="1" value="25">
+                 </div>
+                 <div class="setting-item">
+                     <label for="short-break-duration">Kısa Mola (dk):</label>
+                     <input type="number" id="short-break-duration" min="1" value="5">
+                 </div>
+                 <div class="setting-item">
+                     <label for="long-break-duration">Uzun Mola (dk):</label>
+                     <input type="number" id="long-break-duration" min="1" value="15">
+                 </div>
+                  <hr>
+                 <button id="save-settings-btn" class="button primary small full-width"><i class="fas fa-save"></i> Ayarları Kaydet</button>
+            </div>
+            <div class="timer-container">
+                 <div class="timer-display">
+                      <svg class="progress-ring" width="260" height="260">
+                         <circle class="progress-ring__background" stroke-width="12" fill="transparent" r="120" cx="130" cy="130"/>
+                         <circle class="progress-ring__circle" stroke-width="12" fill="transparent" r="120" cx="130" cy="130"/>
+                      </svg>
+                     <div class="timer-content">
+                         <div id="time-left" class="time-left">25:00</div>
+                         <div id="mode-label" class="mode">ODAKLANMA</div>
+                         <button id="control-button" class="control-button" aria-label="Başlat">
+                              <span id="button-icon">▶</span>
+                         </button>
+                     </div>
+                 </div>
+            </div>
+            <div class="app-footer">
+                 <span>Döngü: <span id="cycle-info">1/4</span></span>
+                  <button id="reset-button" class="button secondary small" title="Mevcut Döngüyü Sıfırla">
+                     <i class="fas fa-undo"></i> Sıfırla
+                  </button>
+            </div>
+         </div>
+    </main>
+
+    <!-- Gerekli JS Dosyaları -->
+    <script src="../src/index.js"></script>
+    <script src="../src/pomodoro.js"></script>
+
+    <!-- Pomodoro JS'i Başlatma -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof initializePomodoro === 'function') {
+                 const pomodoroInstance = initializePomodoro();
+                 if (!pomodoroInstance) {
+                    console.error("Pomodoro zamanlayıcı başlatılamadı.");
+                 }
+            } else {
+                console.error("Pomodoro initialization function (initializePomodoro) not found!");
+            }
+        });
+    </script>
+
+</body>
+</html>

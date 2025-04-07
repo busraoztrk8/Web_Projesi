@@ -1,0 +1,307 @@
+/* --- TEMEL AYARLAR VE DEĞİŞKENLER --- */
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #f5a623;
+    --background-color: #f8f9fa;
+    --card-bg-color: #ffffff;
+    --text-color: #212529;
+    --text-muted: #6c757d;
+    --border-color: #dee2e6;
+    --input-bg: #e9ecef;
+    --shadow-soft: rgba(0, 0, 0, 0.06);
+    --shadow-medium: rgba(0, 0, 0, 0.1);
+    --danger-color: #dc3545; /* Silme butonu için */
+    --success-color: #198754; /* Başarı mesajları için */
+
+    --dark-background-color: #121212;
+    --dark-card-bg-color: #1e1e1e;
+    --dark-header-bg-color: #181818;
+    --dark-text-color: #e0e0e0;
+    --dark-text-muted: #adb5bd;
+    --dark-border-color: #444;
+    --dark-input-bg: #333;
+    --dark-danger-color: #f8d7da; /* Koyu temada silme butonu rengi */
+    --dark-success-color: #a3cfbb; /* Koyu temada başarı rengi */
+
+
+    --header-height: 65px;
+    --transition-speed: 0.25s;
+    --transition-timing: ease-in-out;
+    --border-radius-small: 4px;
+    --border-radius-medium: 8px;
+    --border-radius-large: 12px;
+}
+
+/* Koyu Tema Ayarları */
+body.dark-theme {
+    --background-color: var(--dark-background-color);
+    --card-bg-color: var(--dark-card-bg-color);
+    --text-color: var(--dark-text-color);
+    --text-muted: var(--dark-text-muted);
+    --border-color: var(--dark-border-color);
+    --input-bg: var(--dark-input-bg);
+    --shadow-soft: rgba(255, 255, 255, 0.05);
+    --shadow-medium: rgba(255, 255, 255, 0.08);
+    --danger-color: var(--dark-danger-color); /* Koyu tema silme rengi */
+    --success-color: var(--dark-success-color); /* Koyu tema başarı rengi */
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding-top: var(--header-height);
+    transition: background-color var(--transition-speed) var(--transition-timing),
+                color var(--transition-speed) var(--transition-timing);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.01em;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-speed) var(--transition-timing);
+}
+a:hover {
+    filter: brightness(85%);
+    text-decoration: none;
+}
+
+/* --- HEADER --- */
+header {
+     background-color: var(--card-bg-color);
+    box-shadow: 0 1px 3px var(--shadow-soft);
+    padding: 0 1.5rem;
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color var(--transition-speed) var(--transition-timing),
+                border-color var(--transition-speed) var(--transition-timing);
+}
+
+/* --- NAVIGATION --- */
+header nav { flex-grow: 1; display: flex; justify-content: center; height: 100%; align-items: center; }
+nav ul { list-style: none; display: flex; gap: 2rem; padding-left: 0; height: 100%; align-items: center; }
+.nav-link { color: var(--text-color); opacity: 0.8; font-weight: 600; padding: 0.5rem 0.5rem; position: relative; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.06em; transition: color var(--transition-speed) var(--transition-timing), opacity var(--transition-speed) var(--transition-timing); display: flex; align-items: center; height: 100%; }
+.nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); width: 0; height: 2.5px; background-color: var(--primary-color); transition: width var(--transition-speed) var(--transition-timing), background-color var(--transition-speed) var(--transition-timing); }
+.nav-link:hover { color: var(--primary-color); opacity: 1; }
+.nav-link:hover::after { width: 50%; }
+.nav-link.active { color: var(--primary-color); font-weight: 700; opacity: 1; }
+.nav-link.active::after { width: 70%; }
+
+/* --- HEADER CONTROLS --- */
+.header-controls { display: flex; align-items: center; gap: 0.8rem; }
+.theme-button, .profile-icon, .logout-button { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 1.1rem; padding: 0.6rem; border-radius: var(--border-radius-medium); width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; transition: color var(--transition-speed) var(--transition-timing), background-color var(--transition-speed) var(--transition-timing), transform 0.15s ease-out; }
+.theme-button:hover, .profile-icon:hover, .logout-button:hover { color: var(--primary-color); background-color: var(--input-bg); }
+.theme-button:active, .profile-icon:active, .logout-button:active { transform: scale(0.92); }
+
+/* --- RENK SEÇİCİ (Genel Stil) --- */
+.color-picker-container { position: relative; display: inline-block; }
+.color-picker-popover { position: absolute; top: calc(100% + 10px); right: 0; z-index: 1010; padding: 1rem; width: 200px; display: none; flex-direction: column; gap: 0.8rem; text-align: center; transform-origin: top right; animation: fadeInScale 0.2s ease-out forwards; background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: var(--border-radius-medium); box-shadow: 0 5px 15px var(--shadow-medium); }
+.color-picker-popover.visible { display: flex; }
+.color-picker-popover label { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); margin-bottom: -0.3rem; }
+.color-picker-popover input[type="color"] { -webkit-appearance: none; appearance: none; width: 100%; height: 40px; border: 1px solid var(--border-color); border-radius: var(--border-radius-small); cursor: pointer; background-color: transparent; padding: 0; overflow: hidden; transition: border-color var(--transition-speed) var(--transition-timing); }
+.color-picker-popover input[type="color"]::-webkit-color-swatch-wrapper { padding: 3px; }
+.color-picker-popover input[type="color"]::-webkit-color-swatch { border: none; border-radius: calc(var(--border-radius-small) - 2px); }
+.color-picker-popover input[type="color"]::-moz-color-swatch { border: none; border-radius: calc(var(--border-radius-small) - 2px); }
+#reset-bg-color-button { width: 100%; margin-top: 0.2rem; }
+
+@keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+/* --- MAIN CONTENT --- */
+main { max-width: 1200px; margin: 2.5rem auto; padding: 0 1.5rem; }
+.welcome-section { margin-bottom: 2.5rem; text-align: center; }
+.welcome-section h2 { font-size: 2rem; font-weight: 600; color: var(--text-color); transition: color var(--transition-speed) var(--transition-timing); }
+#username { color: var(--primary-color); font-weight: 700; }
+
+.card { background-color: var(--card-bg-color); border-radius: var(--border-radius-large); padding: 1.8rem; box-shadow: 0 4px 12px var(--shadow-soft); border: 1px solid var(--border-color); transition: background-color var(--transition-speed) var(--transition-timing), border-color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing), transform var(--transition-speed) ease-out; margin-bottom: 1.8rem; }
+@media (hover: hover) { .card:hover { box-shadow: 0 7px 20px var(--shadow-medium); transform: translateY(-4px); } }
+.card h3, .card h4 { margin-bottom: 1.2rem; color: var(--text-color); display: flex; align-items: center; gap: 0.6rem; font-weight: 600; font-size: 1.1rem; transition: color var(--transition-speed) var(--transition-timing); }
+.card h3 i, .card h4 i { color: var(--primary-color); font-size: 1rem; transition: color var(--transition-speed) var(--transition-timing); }
+.card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem; transition: color var(--transition-speed) var(--transition-timing); }
+
+.content-grid { display: grid; grid-template-columns: minmax(0, 2.5fr) minmax(0, 1fr); gap: 1.8rem; }
+.sidebar { display: flex; flex-direction: column; gap: 1.8rem; }
+.mood-stats-section, .visuals-section { margin-bottom: 0; }
+
+.placeholder-content { background-color: var(--background-color); border: 1px dashed var(--border-color); padding: 2.5rem 1.5rem; text-align: center; color: var(--text-muted); border-radius: var(--border-radius-medium); min-height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-style: normal; font-size: 0.9rem; margin-top: 1.5rem; opacity: 0.8; transition: background-color var(--transition-speed) var(--transition-timing), border-color var(--transition-speed) var(--transition-timing), color var(--transition-speed) var(--transition-timing); }
+
+/* --- GÖRSELLER SLIDESHOW --- */
+.image-slideshow-container {
+    /* background-color: transparent; */ /* Artık arkaplana gerek yok */
+    /* border: none; */ /* Eski border'ı kaldır */
+    padding: 0;
+    min-height: 180px; /* Resim yüklenene kadar yer tutsun */
+    margin-top: 0.5rem;
+    position: relative; /* Gerekirse */
+    overflow: hidden; /* Gerekirse */
+    border-radius: var(--border-radius-medium); /* Konteyner'a border-radius */
+}
+.inspiration-image { /* IMG elementinin kendisi */
+    display: block; /* Boşluğu kaldırır */
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-medium); /* Resme border-radius */
+    border: 1px solid var(--border-color); /* İsteğe bağlı çerçeve */
+    transition: opacity 0.7s ease-in-out; /* <<< YENİ: Yumuşak geçiş efekti >>> */
+    opacity: 1; /* Başlangıç durumu */
+}
+.inspiration-image.fading {
+    opacity: 0; /* <<< YENİ: Geçiş için opaklık >>> */
+}
+
+
+/* --- PLANLAYICI FORMU VE LİSTESİ --- */
+.planner-form { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1rem; /* Feedback için boşluğu azalttık */ }
+.form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+.form-group label { font-weight: 500; font-size: 0.9rem; color: var(--text-muted); }
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group input[type="text"],
+.form-group input[type="email"] {
+    width: 100%;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 0.95rem;
+    transition: border-color var(--transition-speed) var(--transition-timing),
+                background-color var(--transition-speed) var(--transition-timing),
+                color var(--transition-speed) var(--transition-timing);
+    outline: none;
+}
+.form-group input:focus { border-color: var(--primary-color); box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2); }
+/* <<< YENİ: Feedback Mesaj Stilleri >>> */
+.form-feedback {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 0.5rem; /* Form elemanları ile arasında boşluk */
+    margin-bottom: 1rem; /* Buton ile arasında boşluk */
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--border-radius-small);
+    min-height: 1.5em; /* İçerik olmasa bile yer kaplasın */
+    text-align: center;
+}
+.form-feedback.success {
+    color: var(--success-color);
+    background-color: rgba(25, 135, 84, 0.1); /* Hafif yeşil arkaplan */
+    border: 1px solid rgba(25, 135, 84, 0.2);
+}
+.form-feedback.error {
+    color: var(--danger-color);
+    background-color: rgba(220, 53, 69, 0.1); /* Hafif kırmızı arkaplan */
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+body.dark-theme .form-feedback.success {
+    background-color: rgba(163, 207, 187, 0.15); /* Koyu tema için */
+    border-color: rgba(163, 207, 187, 0.3);
+}
+body.dark-theme .form-feedback.error {
+    background-color: rgba(248, 215, 218, 0.1); /* Koyu tema için */
+    border-color: rgba(248, 215, 218, 0.2);
+}
+
+.reminders-area { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); transition: border-color var(--transition-speed) var(--transition-timing); }
+.reminders-area h4 { margin-bottom: 1rem; }
+.reminder-list { list-style: none; padding-left: 0; }
+.reminder-list li {
+    background-color: var(--background-color); /* Listenin arkaplanı ana arkaplan gibi */
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.8rem;
+    border-radius: var(--border-radius-medium);
+    border: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.95rem;
+    transition: background-color var(--transition-speed) var(--transition-timing),
+                border-color var(--transition-speed) var(--transition-timing),
+                opacity 0.3s ease; /* Silme için opacity geçişi */
+}
+.reminder-list li.no-reminders {
+    justify-content: center;
+    color: var(--text-muted);
+    font-style: italic;
+    background-color: transparent;
+    border: 1px dashed var(--border-color);
+}
+.reminder-info { flex-grow: 1; }
+.reminder-info strong { display: block; margin-bottom: 0.2rem; color: var(--text-color); transition: color var(--transition-speed) var(--transition-timing);}
+.reminder-info span { color: var(--text-muted); font-size: 0.85rem; transition: color var(--transition-speed) var(--transition-timing);}
+.reminder-info small { /* E-posta ve bildirim yazısı için */
+    display: block; /* Alt satıra geçsin */
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 0.3rem;
+}
+.reminder-info small.notified { /* Bildirim gönderildi yazısı */
+    color: var(--success-color);
+    font-weight: 500;
+}
+.reminder-actions button {
+    background: none;
+    border: none;
+    color: var(--danger-color); /* Değişkenden alıyor */
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.3rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+.reminder-actions button:hover { opacity: 1; }
+.reminder-actions button:disabled { opacity: 0.5; cursor: not-allowed; } /* Silme sırasında */
+body.dark-theme .reminder-actions button { color: var(--dark-danger-color); } /* Koyu temada silme rengi */
+body.dark-theme .reminder-info small.notified { color: var(--dark-success-color); } /* Koyu tema başarı rengi */
+
+/* --- Genel Buton Stilleri --- */
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.7rem 1.2rem; border-radius: var(--border-radius-medium); border: none; font-weight: 600; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, filter 0.2s ease, transform 0.1s ease; font-size: 0.9rem; text-align: center; }
+.button.primary { background-color: var(--primary-color); color: white; }
+.button.primary:hover { filter: brightness(90%); }
+.button.primary:disabled { background-color: var(--text-muted); cursor: not-allowed; filter: none; } /* Gönderme sırasında */
+.button.secondary { background-color: var(--input-bg); color: var(--text-muted); border: 1px solid var(--border-color); }
+.button.secondary:hover { background-color: var(--border-color); color: var(--text-color); }
+.button.small { padding: 0.5rem 1rem; font-size: 0.85rem; }
+.button.full-width { width: 100%; }
+.button:active:not(:disabled) { transform: scale(0.97); } /* :disabled ekledik */
+
+.add-button { position: fixed; bottom: 2rem; right: 2rem; width: 56px; height: 56px; background-color: var(--primary-color); color: white; border: none; border-radius: 50%; font-size: 1.6rem; display: flex; justify-content: center; align-items: center; box-shadow: 0 6px 18px var(--shadow-medium); cursor: pointer; transition: background-color var(--transition-speed) var(--transition-timing), transform 0.2s ease-out, filter 0.2s ease, box-shadow var(--transition-speed) var(--transition-timing); z-index: 999; }
+@media (hover: hover) { .add-button:hover { filter: brightness(90%); transform: scale(1.08) rotate(15deg); box-shadow: 0 8px 22px var(--shadow-medium); } }
+.add-button:active { transform: scale(0.95); transition-duration: 0.1s; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) { .content-grid { grid-template-columns: 1fr; gap: 1.5rem; } .sidebar { margin-top: 0; } main { padding: 0 1rem; margin-top: 2rem; } .card { padding: 1.5rem; } }
+@media (max-width: 768px) { html { font-size: 15px; } header { padding: 0 1rem; } header nav { flex-grow: 0; } nav ul { gap: 1rem; } .nav-link { font-size: 0.85rem; letter-spacing: 0.04em; padding: 0.4rem 0.3rem;} .nav-link::after { height: 2px; bottom: -2px;} .header-controls { gap: 0.3rem; } .theme-button, .profile-icon, .logout-button { width: 36px; height: 36px; font-size: 0.9rem; padding: 0.4rem; } .color-picker-popover { width: 180px; } .welcome-section h2 { font-size: 1.6rem; } .card { padding: 1.2rem; border-radius: var(--border-radius-medium); transform: none !important; /* hover efektini kaldır */ box-shadow: 0 4px 12px var(--shadow-soft);} .card h3, .card h4 { font-size: 1rem; margin-bottom: 1rem;} .card p { font-size: 0.9rem; } .add-button { width: 50px; height: 50px; font-size: 1.4rem; bottom: 1.5rem; right: 1.5rem; transform: none !important; } .add-button:hover { transform: none !important; } .add-button:active { transform: scale(0.95) !important; }
+    /* Responsive planlayıcı */
+    .reminder-list li { flex-direction: column; align-items: flex-start; }
+    .reminder-actions { margin-top: 0.5rem; align-self: flex-end; }
+    /* Responsive Slideshow */
+    .image-slideshow-container { min-height: 150px; }
+}
+@media (max-width: 480px) { html { font-size: 14px; } nav ul { gap: 0.5rem; } .nav-link { font-size: 0.8rem; padding: 0.3rem 0.2rem; letter-spacing: 0.03em;} main { padding-top: 1.5rem; margin-top: 1.5rem;} .welcome-section h2 { font-size: 1.4rem; } .card { padding: 1rem; } .add-button { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1rem; right: 1rem; }
+    .form-group input[type="date"], .form-group input[type="time"], .form-group input[type="text"], .form-group input[type="email"] { padding: 0.6rem 0.7rem; font-size: 0.9rem; }
+    .reminder-list li { padding: 0.8rem 1rem; }
+     /* Responsive Slideshow */
+    .image-slideshow-container { min-height: 120px; }
+}

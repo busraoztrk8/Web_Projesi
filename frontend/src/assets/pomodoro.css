@@ -1,0 +1,262 @@
+/* --- POMODORO ÖZEL STİLLER --- */
+
+/* Ana Pomodoro Konteynerini Sayfada Ortala */
+.pomodoro-main-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 1rem;
+    min-height: calc(100vh - var(--header-height) - 4rem);
+}
+
+/* Pomodoro Uygulama Kartı */
+.pomodoro-app {
+    /* index.css'den gelen .card stillerini kullanır */
+    max-width: 480px;
+    width: 100%;
+    padding: 2rem;
+    /* background-color, border, border-radius, box-shadow .card'dan gelir */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+/* Kart içindeki başlıklar */
+.pomodoro-app h4 {
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+}
+.pomodoro-app h4 i {
+    color: var(--primary-color); /* Ana rengi kullan */
+     transition: color var(--transition-speed) var(--transition-timing);
+}
+
+/* --- Ayarlar Paneli --- */
+.settings-panel {
+    background-color: var(--background-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius-medium);
+    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+    transition: background-color var(--transition-speed) var(--transition-timing),
+                border-color var(--transition-speed) var(--transition-timing);
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.setting-item label {
+    flex-basis: 60%;
+    text-align: left;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.setting-item input[type="number"] {
+    flex-basis: 35%;
+    padding: 0.6rem 0.8rem;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: var(--border-radius-small);
+    text-align: center;
+    font-size: 1rem;
+    transition: background-color var(--transition-speed) var(--transition-timing),
+                border-color var(--transition-speed) var(--transition-timing),
+                color var(--transition-speed) var(--transition-timing);
+}
+.setting-item input[type=number]::-webkit-inner-spin-button,
+.setting-item input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none; margin: 0;
+}
+
+.settings-panel hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 1.5rem 0 1rem 0;
+    transition: border-color var(--transition-speed) var(--transition-timing);
+}
+
+/* index.css'deki .button stilleri burada da geçerli */
+#save-settings-btn {
+    /* .button.primary.small.full-width stillerini kullanır */
+    font-size: 1rem;
+}
+
+/* --- Zamanlayıcı Alanı --- */
+.timer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.timer-display {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+}
+
+/* Arka plan halkası (sabit) */
+.progress-ring__background {
+    stroke: var(--input-bg); /* Temaya uygun arka plan rengi */
+    transition: stroke var(--transition-speed) var(--transition-timing);
+}
+
+/* İlerleme halkası (dolan kısım) */
+.progress-ring__circle {
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.3s linear, stroke 0.5s ease;
+    /* stroke, stroke-dasharray, stroke-dashoffset JS tarafından ayarlanacak */
+}
+
+/* Modlara Göre Renkler (Bunlar tema renginden bağımsız olmalı) */
+.progress-ring__circle.focus { stroke: #e74c3c; } /* Kırmızımsı */
+.progress-ring__circle.shortBreak { stroke: #2ecc71; } /* Yeşil */
+.progress-ring__circle.longBreak { stroke: #3498db; } /* Mavi */
+
+/* Dark Tema için progress bar renkleri (isteğe bağlı, aynı kalabilir) */
+body.dark-theme .progress-ring__background {
+     stroke: var(--dark-input-bg);
+}
+/* İsteğe bağlı: Koyu temada renkleri biraz daha canlı yapabilirsiniz */
+/* body.dark-theme .progress-ring__circle.focus { stroke: #f15a64; } */
+/* body.dark-theme .progress-ring__circle.shortBreak { stroke: #48c9a9; } */
+/* body.dark-theme .progress-ring__circle.longBreak { stroke: #5ea9e1; } */
+
+
+.timer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.time-left {
+    font-size: 3.8rem;
+    font-weight: 300;
+    color: var(--text-color);
+    margin-bottom: 0px;
+    line-height: 1.1;
+    transition: color var(--transition-speed) var(--transition-timing);
+}
+
+.mode {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+     transition: color var(--transition-speed) var(--transition-timing);
+}
+
+.control-button {
+    background-color: var(--primary-color); /* Ana rengi kullan */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0, 0.15);
+    transition: background-color 0.2s ease, transform 0.15s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+.control-button:hover {
+    /* background-color: var(--primary-color-darker); */
+    filter: brightness(90%); /* Ana rengi koyult */
+    box-shadow: 0 6px 15px rgba(0,0,0, 0.2);
+    transform: translateY(-2px);
+}
+.control-button:active {
+    transform: scale(0.95) translateY(0);
+    box-shadow: 0 2px 5px rgba(0,0,0, 0.1);
+}
+#button-icon {
+    line-height: 1;
+    display: block;
+    margin-top: -2px;
+}
+
+/* --- Footer Alanı (Döngü Bilgisi) --- */
+.app-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 0.9em;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border-color);
+    margin-top: 1rem;
+     transition: color var(--transition-speed) var(--transition-timing),
+                 border-color var(--transition-speed) var(--transition-timing);
+}
+
+#cycle-info {
+    font-weight: bold;
+    color: var(--text-color);
+     transition: color var(--transition-speed) var(--transition-timing);
+}
+
+#reset-button {
+    /* .button.secondary.small stillerini kullanır */
+    padding: 0.4rem 0.8rem;
+}
+
+/* --- RESPONSIVE AYARLAR --- */
+@media (max-width: 768px) {
+    .pomodoro-main-container { padding: 1.5rem 0.8rem; }
+    .pomodoro-app { padding: 1.5rem; gap: 1rem; }
+    .settings-panel { padding: 1rem; }
+    .time-left { font-size: 3.2rem; }
+    .mode { font-size: 0.9rem; margin-bottom: 1rem; }
+    .control-button { width: 60px; height: 60px; font-size: 1.8rem; }
+    .timer-display { width: 220px; height: 220px; }
+    .progress-ring { width: 220px; height: 220px; }
+    .progress-ring circle { stroke-width: 10; r: 100; cx: 110; cy: 110; }
+    .app-footer { font-size: 0.85em; }
+}
+
+@media (max-width: 480px) {
+     .pomodoro-main-container { padding: 1rem 0.5rem; }
+    .pomodoro-app { padding: 1rem; }
+    .setting-item { flex-direction: column; align-items: stretch; gap: 0.5rem; margin-bottom: 1.2rem; }
+     .setting-item label { flex-basis: auto; text-align: center; margin-bottom: 0.2rem; }
+    .setting-item input[type="number"] { flex-basis: auto; width: 80%; margin: 0 auto; font-size: 0.95rem; }
+     .time-left { font-size: 2.8rem; }
+     .mode { font-size: 0.8rem; letter-spacing: 1px; }
+    .control-button { width: 55px; height: 55px; font-size: 1.6rem; }
+     .timer-display { width: 180px; height: 180px; }
+    .progress-ring { width: 180px; height: 180px; }
+    .progress-ring circle { stroke-width: 9; r: 80; cx: 90; cy: 90; }
+    .app-footer { flex-direction: column; gap: 0.8rem; text-align: center; padding-top: 1rem; }
+    #reset-button { width: 60%; margin: 0 auto; }
+}
