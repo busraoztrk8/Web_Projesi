@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhispDiary</title>
+    <link rel="stylesheet" href="../src/assets/diary.css">
+    
+</head>
+<body>
+    <header>
+        <!-- Back to Homepage Button -->
+        <a href="index.html" class="back-to-home" aria-label="Anasayfaya Dön">
+            <i class="fas fa-arrow-left"></i> Anasayfaya Dön
+        </a>
+        <h1>WhispDiary</h1>
+        <p>Günlüklerinizi yazın, kaydedin ve hatırlayın.</p>
+    </header>
+    <main>
+        <section class="diary-entry card">
+            <h2>Yeni Günlük Ekle</h2>
+            <textarea id="diary-text" placeholder="Bugün neler hissettiniz?"></textarea>
+            <button id="save-diary" class="button primary">Kaydet</button>
+        </section>
+
+        <section class="audio-recording card">
+            <h2>Ses Kaydı</h2>
+            <div class="audio-controls">
+                <button id="start-recording" class="button"> Kaydı Başlat </button>
+                <button id="stop-recording" class="button" disabled> Kaydı Durdur </button>
+                <button id="save-recording" class="button" disabled> Kaydet </button><br>
+            </div><br>
+            <audio id="audio-playback" controls></audio>
+        </section>
+        
+        <section class="diary-list card">
+            <h2>Kayıtlı Günlükler</h2>
+            <ul id="diary-entries">
+                <li>Henüz günlük eklenmedi.</li>
+            </ul>
+        </section>
+
+    </main>
+    <footer>
+        <p>&copy; 2025 WhispDiary. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script defer src="../src/diary.js"></script>
+</body>
+</html>
