@@ -3,48 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhispDiary</title>
+    <title>WhispDiary - Günlük Oluştur</title>
+    <!-- Font Awesome CDN (İkonlar için) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../src/assets/diary.css">
-    
 </head>
 <body>
-    <header>
-        <!-- Back to Homepage Button -->
-        <a href="index.html" class="back-to-home" aria-label="Anasayfaya Dön">
-            <i class="fas fa-arrow-left"></i> Anasayfaya Dön
-        </a>
-        <h1>WhispDiary</h1>
-        <p>Günlüklerinizi yazın, kaydedin ve hatırlayın.</p>
+    <header class="app-header">
+        <div class="header-left">
+            <!-- Geri Dön Butonu -->
+            <a href="index.html" class="icon-button back-button" aria-label="Anasayfaya Dön">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+             <h1>Günlük Oluştur</h1>
+        </div>
+        <div class="header-right">
+             <!-- Ses Kayıt Butonları -->
+             <button id="start-recording" class="icon-button" aria-label="Kaydı Başlat"><i class="fas fa-microphone"></i></button>
+             <button id="stop-recording" class="icon-button" aria-label="Kaydı Durdur" disabled><i class="fas fa-stop"></i></button>
+             <button id="save-audio" class="icon-button" aria-label="Ses Kaydını Kaydet" disabled><i class="fas fa-save"></i></button>
+             <button id="cancel-recording" class="icon-button" aria-label="Kaydı İptal Et" disabled><i class="fas fa-times"></i></button>
+             <audio id="audio-playback" style="display: none;"></audio> <!-- Ses çalmak için gizli element -->
+        </div>
     </header>
+
     <main>
+        <div class="editor-toolbar">
+            <!-- Font Seçimi -->
+            <select id="font-family-select" aria-label="Yazı Tipi">
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="Verdana, sans-serif">Verdana</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="Times New Roman, serif">Times New Roman</option>
+                <option value="Courier New, monospace">Courier New</option>
+                <option value="'Roboto', sans-serif">Roboto</option> <!-- Google Font Örneği -->
+                <option value="'Open Sans', sans-serif">Open Sans</option> <!-- Google Font Örneği -->
+                <option value="'Lato', sans-serif">Lato</option> <!-- Google Font Örneği -->
+                <option value="'Montserrat', sans-serif">Montserrat</option> <!-- Google Font Örneği -->
+                <option value="'Nunito', sans-serif">Nunito</option> <!-- Google Font Örneği -->
+                <!-- Daha fazla font eklenebilir -->
+            </select>
+
+            <!-- Font Boyutu -->
+            <select id="font-size-select" aria-label="Yazı Boyutu">
+                <option value="1">Çok Küçük (8pt)</option>
+                <option value="2">Küçük (10pt)</option>
+                <option value="3" selected>Normal (12pt)</option>
+                <option value="4">Orta (14pt)</option>
+                <option value="5">Büyük (18pt)</option>
+                <option value="6">Çok Büyük (24pt)</option>
+                <option value="7">En Büyük (36pt)</option>
+            </select>
+
+            <!-- Font Rengi -->
+            <label for="font-color-picker" class="toolbar-label" aria-label="Yazı Rengi">
+                 <i class="fas fa-palette"></i>
+                 <input type="color" id="font-color-picker" title="Yazı Rengi">
+            </label>
+
+
+            <!-- Stil Butonları -->
+            <button class="toolbar-button" data-command="bold" aria-label="Kalın"><i class="fas fa-bold"></i></button>
+            <button class="toolbar-button" data-command="italic" aria-label="İtalik"><i class="fas fa-italic"></i></button>
+            <button class="toolbar-button" data-command="underline" aria-label="Altı Çizili"><i class="fas fa-underline"></i></button>
+
+             <!-- Sayfa Rengi -->
+             <label for="page-color-picker" class="toolbar-label" aria-label="Sayfa Rengi">
+                <i class="fas fa-fill-drip"></i>
+                <input type="color" id="page-color-picker" value="#FFFFFF" title="Sayfa Rengi">
+             </label>
+        </div>
+
         <section class="diary-entry card">
-            <h2>Yeni Günlük Ekle</h2>
-            <textarea id="diary-text" placeholder="Bugün neler hissettiniz?"></textarea>
-            <button id="save-diary" class="button primary">Kaydet</button>
+             <!-- Başlık Alanı -->
+            <input type="text" id="diary-title" placeholder="Başlık" aria-label="Günlük Başlığı">
+
+            <!-- Düzenlenebilir İçerik Alanı -->
+            <div id="diary-content" contenteditable="true" class="editable-content" aria-label="Günlük İçeriği" placeholder="Düşüncelerinizi yazın..."></div>
+
+            <button id="save-diary" class="button primary">Günlüğü Kaydet</button>
+            <!-- diary.html içine eklenecek buton -->
+<button id="analyze-sentiment-button" class="button secondary" title="Duygu Analizi Yap" style="margin-left: 10px;">
+    <i class="fas fa-brain"></i> Analiz Et
+</button>
+    <div id="sentiment-result" style="margin-top: 10px; font-weight: bold;"></div> <!-- Sonucu göstermek için alan -->
         </section>
 
-        <section class="audio-recording card">
-            <h2>Ses Kaydı</h2>
-            <div class="audio-controls">
-                <button id="start-recording" class="button"> Kaydı Başlat </button>
-                <button id="stop-recording" class="button" disabled> Kaydı Durdur </button>
-                <button id="save-recording" class="button" disabled> Kaydet </button><br>
-            </div><br>
-            <audio id="audio-playback" controls></audio>
-        </section>
-        
+
         <section class="diary-list card">
-            <h2>Kayıtlı Günlükler</h2>
+            <h2>Kayıtlı Günlüklerim</h2>
             <ul id="diary-entries">
                 <li>Henüz günlük eklenmedi.</li>
             </ul>
         </section>
-
     </main>
+    <!-- diary.html dosyasının sonuna eklenecek modal yapısı -->
+<div id="analysis-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <button id="close-modal-button" class="modal-close-button" aria-label="Kapat">×</button>
+        <h2>Analiz Sonuçları ve Plan</h2>
+        <div id="modal-loading" style="text-align: center; padding: 20px;">
+            <p><i class="fas fa-spinner fa-spin"></i> Analiz ediliyor ve plan oluşturuluyor...</p>
+        </div>
+        <div id="modal-results" style="display: none;">
+            <div id="modal-sentiment-result" style="margin-bottom: 15px; padding: 8px; border-radius: 4px; font-weight: bold;">
+                <!-- Duygu analizi sonucu buraya gelecek -->
+            </div>
+            <div id="modal-ai-plan">
+                <h3><i class="fas fa-clipboard-list"></i> Kişisel Planın:</h3>
+                <div id="modal-plan-content" style="line-height: 1.6; background-color: #f9f9f9; padding: 10px; border-radius: 4px; border: 1px solid #eee;">
+                    <!-- Yapay zeka planı buraya gelecek -->
+                </div>
+            </div>
+        </div>
+        <div id="modal-error" style="display: none; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; border-radius: 4px; text-align: center;">
+            <!-- Hata mesajları buraya gelecek -->
+        </div>
+    </div>
+</div>
+<!-- Modal Sonu -->
+
     <footer>
-        <p>&copy; 2025 WhispDiary. Tüm hakları saklıdır.</p>
+        <p>© 2025 WhispDiary. Tüm hakları saklıdır.</p>
     </footer>
 
-    <script defer src="../src/diary.js"></script>
+    <script src="../src/diary.js"></script>
 </body>
 </html>

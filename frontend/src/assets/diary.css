@@ -1,91 +1,208 @@
+/* Genel Stiller */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;
     color: #333;
     margin: 0;
     padding: 0;
+    transition: background-color 0.3s ease;
 }
 
-header {
-    background-color: #6c63ff;
+/* Header */
+.app-header {
+    background-color: #1e88e5;
     color: white;
-    text-align: center;
-    padding: 1.5rem 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0.8rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-header h1 {
-    font-size: 2.5rem;
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-left h1 {
+    font-size: 1.5rem;
     margin: 0;
+    font-weight: 600;
 }
 
-header p {
-    font-size: 1.2rem;
-    margin: 0.5rem 0 1rem;
-}
-
-header .button {
-    background-color: #4e4cb8;
-    color: white;
+.icon-button {
+    background: none;
     border: none;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s ease;
+}
+
+.icon-button:hover:not(:disabled) {
+    color: #bbdefb;
+}
+
+.icon-button:disabled {
+    color: #90caf9;
+    cursor: not-allowed;
+}
+
+.back-button {
+    text-decoration: none;
+}
+
+/* Toolbar */
+.editor-toolbar {
+    background-color: #ffffff;
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.editor-toolbar select,
+.editor-toolbar input[type="color"],
+.editor-toolbar .toolbar-button {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: #fff;
+}
+
+.editor-toolbar select {
+     min-width: 100px;
+}
+
+.editor-toolbar input[type="color"] {
+    padding: 2px;
+    height: 25px;
+    width: 30px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.editor-toolbar .toolbar-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.editor-toolbar .toolbar-label i {
+    color: #555;
+}
+
+.editor-toolbar .toolbar-button {
+    background: none;
+    border: 1px solid #ccc;
     cursor: pointer;
     font-size: 1rem;
+    padding: 0.4rem 0.7rem;
 }
 
-header .button:hover {
-    background-color: #3c3a99;
+.editor-toolbar .toolbar-button:hover {
+    background-color: #eee;
 }
 
+/* Ana İçerik */
 main {
-    padding: 2rem 1rem;
-    max-width: 800px;
+    padding: 1rem;
+    max-width: 900px;
     margin: 0 auto;
 }
 
 .card {
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    margin-top: 0;
     margin-bottom: 1rem;
-    color: #6c63ff;
+    color: #1e88e5;
 }
 
-textarea {
+/* Başlık Input */
+#diary-title {
     width: 100%;
-    height: 150px;
     padding: 0.8rem;
+    border: none;
+    border-bottom: 2px solid #e0e0e0;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+#diary-title:focus {
+    outline: none;
+    border-bottom-color: #1e88e5;
+}
+
+
+/* Düzenlenebilir İçerik Alanı */
+.editable-content {
+    width: 100%;
+    min-height: 250px;
+    padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
-    resize: none;
+    line-height: 1.6;
     margin-bottom: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: #fff;
+}
+.editable-content:focus {
+    outline: none;
+    border-color: #1e88e5;
+    box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.2);
+}
+.editable-content[placeholder]:empty:before {
+    content: attr(placeholder);
+    color: #aaa;
+    cursor: text;
 }
 
+
+/* Butonlar */
 .button {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #6c63ff;
+    padding: 0.7rem 1.5rem;
+    background-color: #1e88e5;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
 }
 
 .button.primary {
-    background-color: #4caf50;
+    background-color: #43a047;
 }
 
 .button.primary:hover {
-    background-color: #45a049;
+    background-color: #388e3c;
 }
 
 .button:disabled {
@@ -94,9 +211,10 @@ textarea {
 }
 
 .button:hover:not(:disabled) {
-    background-color: #5a54d6;
+    background-color: #1565c0;
 }
 
+/* Kayıtlı Günlükler Listesi */
 ul {
     list-style: none;
     padding: 0;
@@ -104,57 +222,181 @@ ul {
 }
 
 ul li {
-    padding: 0.8rem;
-    border: 1px solid #ccc;
-    margin-bottom: 0.5rem;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 1rem;
     border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: #f9f9f9;
+    /* display: flex; */ /* Bunu kaldırabiliriz, içerik zaten block seviyesinde */
+    /* flex-direction: column; */ /* Yukarıdaki kaldırıldığı için gereksiz */
+    position: relative; /* Konteynerin konumlanması için GEREKLİ */
+    /* Butonların kaplayacağı alanı hesaba katmak için padding ayarlaması: */
+    /* İki buton (26px + 26px) + aradaki boşluk (0.4rem ~ 6px) + kenar boşluğu (0.5rem ~ 8px) */
+    padding-right: calc(26px + 26px + 0.4rem + 0.5rem + 5px); /* Biraz daha fazla boşluk */
 }
 
-ul li button {
-    margin-left: 1rem;
-    background-color: #dc3545;
+ul li .entry-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+ul li .entry-content {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #555;
+    max-height: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- DÜZENLENMİŞ BUTON KONUMLANDIRMA --- */
+
+/* Aksiyon Butonları Konteyneri */
+.entry-actions {
+    position: absolute;   /* Konteyneri li içinde sağ üste konumlandır */
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;        /* İçindeki butonları yan yana diz */
+    gap: 0.4rem;        /* Butonlar arasına boşluk koy */
+    align-items: center;  /* Dikeyde ortala (farklı yükseklikte ikonlar varsa) */
+}
+
+/* HER BİR Aksiyon Butonu (Düzenle ve Sil için ortak stil) */
+.entry-action-button {
+    /* --- position: absolute; YOK! --- */
+    background: none; /* Arka plan rengi spesifik kurallarda tanımlanacak */
     border: none;
     color: white;
-    padding: 0.3rem 0.6rem;
-    border-radius: 5px;
+    padding: 0; /* Padding yerine width/height/line-height kullan */
+    border-radius: 50%;
     cursor: pointer;
+    font-size: 0.9rem; /* İkon boyutu */
+    width: 26px;       /* Sabit genişlik */
+    height: 26px;      /* Sabit yükseklik */
+    display: inline-flex; /* İkonu ortalamak için flex kullan */
+    align-items: center;
+    justify-content: center;
+    /* line-height: 1; */ /* flex ile ortalama yapıldığı için genelde gereksiz */
+    transition: background-color 0.2s ease;
 }
 
-ul li button:hover {
-    background-color: #a71d2a;
+/* Spesifik Buton Renkleri */
+.edit-button {
+   background-color: #1e88e5; /* Mavi Düzenle */
+}
+.edit-button:hover {
+   background-color: #1565c0;
 }
 
+.delete-button {
+   background-color: #e53935; /* Kırmızı Sil */
+   /* --- position: absolute; YOK! --- Emin olun bu kural burada veya başka yerde yok */
+}
+.delete-button:hover {
+   background-color: #c62828;
+}
+
+/* Eski, tekil konumlandırma kuralı olmadığından emin olun */
+/* ul li .delete-button { ... } */
+
+
+/* Footer */
 footer {
     text-align: center;
     padding: 1rem;
-    background-color: #6c63ff;
+    background-color: #1e88e5;
     color: white;
     margin-top: 2rem;
     font-size: 0.9rem;
 }
 
+/* diary.css dosyasına eklenecek modal stilleri */
 
-.back-to-home {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    display: inline-flex;
+.modal-overlay {
+    position: fixed; /* Sayfayı kapla */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Hafif karartma efekti */
+    display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 0.5rem;
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: color 0.2s ease;
+    z-index: 1000; /* Diğer elementlerin üzerinde olsun */
+    opacity: 0; /* Başlangıçta gizli */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s; /* Yumuşak geçiş */
 }
 
-.back-to-home i {
-    font-size: 1.2rem;
+.modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
 }
 
-.back-to-home:hover {
-    color: var(--secondary-color);
+.modal-content {
+    background-color: white;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-width: 600px; /* Maksimum genişlik */
+    width: 90%;      /* Ekran küçülünce genişliği ayarla */
+    max-height: 80vh; /* Maksimum yükseklik */
+    overflow-y: auto; /* İçerik sığmazsa kaydırma çubuğu */
+    position: relative; /* Kapatma butonu için */
+    transform: scale(0.9); /* Başlangıçta küçük */
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.visible .modal-content {
+    transform: scale(1); /* Görünür olunca normal boyutuna gelsin */
+}
+
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #1e88e5; /* Header rengiyle uyumlu */
+    text-align: center;
+    font-size: 1.6em;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    color: #aaa;
+    cursor: pointer;
+    padding: 0;
+}
+.modal-close-button:hover {
+    color: #333;
+}
+
+#modal-sentiment-result {
+    text-align: center;
+    margin-bottom: 20px; /* Plana biraz daha boşluk */
+}
+
+#modal-ai-plan h3 {
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 1.1em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+#modal-ai-plan h3 i {
+    margin-right: 8px;
+    color: #1e88e5;
+}
+
+#modal-plan-content {
+    min-height: 50px; /* Boşken bile biraz yer kaplasın */
 }
