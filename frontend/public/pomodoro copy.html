@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Zamanlayıcı - WhispDiary</title>
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- İkonlar için Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Gerekli CSS Dosyaları -->
+    <link rel="stylesheet" href="../src/assets/index.css">
+    <link rel="stylesheet" href="../src/assets/pomodoro.css"> <!-- Bu dosya güncellenecek -->
+
+</head>
+<body>
+    <!-- Header (index.html ile aynı, ID eklendi) -->
+    <header id="main-header">
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">ANASAYFA</a></li>
+                <li><a href="pomodoro.html" class="nav-link active" aria-current="page">POMODORO</a></li>
+                <li><a href="todolist.html" class="nav-link">HAFTALIK PLANLAYICI</a></li>
+            </ul>
+        </nav>
+         <div class="header-controls">
+            <!-- Renk Seçici -->
+            <div class="color-picker-container">
+                <button id="bg-color-picker-toggle" class="theme-button" aria-label="Arka Plan Rengini Seç">
+                    <i class="fas fa-fill-drip"></i>
+                </button>
+                <div id="bg-color-picker-popover" class="color-picker-popover card">
+                    <label for="custom-bg-color-input">Arka Plan & Header Rengi:</label>
+                    <input type="color" id="custom-bg-color-input" value="#f8f9fa">
+                    <button id="reset-bg-color-button" class="button secondary small">Temaya Sıfırla</button>
+                </div>
+            </div>
+            <!-- Tema Değiştirici -->
+            <button id="theme-toggle" class="theme-button" aria-label="Temayı Değiştir">
+                <i class="fas fa-moon"></i>
+            </button>
+            <!-- Profil -->
+            <div href="profil.html" id="user-profile" class="profile-icon" role="button" tabindex="0" aria-label="Kullanıcı Profili">
+                <i class="fas fa-user"></i>
+            </div>
+            <!-- Çıkış -->
+            <button id="logout-button" class="logout-button" aria-label="Çıkış Yap">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Pomodoro Uygulaması İçeriği -->
+    <main class="pomodoro-main-container">
+         <!-- Ana kart (Animasyon eklendi) -->
+         <div id="pomodoro-app" class="pomodoro-app card animated fadeInUp">
+            <!-- Ayarlar Paneli (Animasyon eklendi) -->
+            <div class="settings-panel animated fadeInUp delay-1">
+                 <h4><i class="fas fa-sliders-h"></i> Zamanlayıcı Ayarları</h4> <!-- İkon değişti -->
+                 <div class="setting-item">
+                     <label for="focus-duration"><i class="fas fa-brain icon-label"></i> Odaklanma (dk):</label>
+                     <input type="number" id="focus-duration" min="1" max="120" value="25">
+                 </div>
+                 <div class="setting-item">
+                     <label for="short-break-duration"><i class="fas fa-coffee icon-label"></i> Kısa Mola (dk):</label>
+                     <input type="number" id="short-break-duration" min="1" max="30" value="5">
+                 </div>
+                 <div class="setting-item">
+                     <label for="long-break-duration"><i class="fas fa-couch icon-label"></i> Uzun Mola (dk):</label>
+                     <input type="number" id="long-break-duration" min="1" max="60" value="15">
+                 </div>
+                  <hr>
+                 <button id="save-settings-btn" class="button primary small full-width"><i class="fas fa-check-circle"></i> Ayarları Kaydet</button> <!-- İkon değişti -->
+            </div>
+            <!-- Zamanlayıcı Alanı (Animasyon eklendi) -->
+            <div class="timer-container animated fadeInUp delay-2">
+                 <div class="timer-display">
+                      <!-- Arkaplan Resmi (İsteğe Bağlı) -->
+                      <div class="timer-background-image"></div>
+                      <!-- SVG Progress Ring -->
+                      <svg class="progress-ring" width="280" height="280"> <!-- Boyut biraz arttı -->
+                         <circle class="progress-ring__background" stroke-width="14" fill="transparent" r="130" cx="140" cy="140"/>
+                         <circle class="progress-ring__circle" stroke-width="14" fill="transparent" r="130" cx="140" cy="140"/>
+                      </svg>
+                     <div class="timer-content">
+                         <div id="time-left" class="time-left">25:00</div>
+                         <div id="mode-label" class="mode">ODAKLANMA</div>
+                         <button id="control-button" class="control-button" aria-label="Başlat">
+                              <!-- İkon span içinde kalmalı, JS bunu değiştiriyor -->
+                              <span id="button-icon">▶</span>
+                         </button>
+                     </div>
+                 </div>
+            </div>
+            <!-- Alt Bilgi (Animasyon eklendi) -->
+            <div class="app-footer animated fadeInUp delay-3">
+                 <span><i class="fas fa-sync-alt icon-label"></i> Döngü: <span id="cycle-info">1/4</span></span>
+                  <button id="reset-button" class="button secondary small" title="Mevcut Döngüyü Sıfırla">
+                     <i class="fas fa-undo-alt"></i> Sıfırla <!-- İkon değişti -->
+                  </button>
+            </div>
+         </div>
+    </main>
+
+    <!-- Gerekli JS Dosyaları -->
+    <script src="../src/index.js"></script>
+    <script src="../src/pomodoro.js"></script> <!-- Bu dosya güncellenecek -->
+
+</body>
+</html>

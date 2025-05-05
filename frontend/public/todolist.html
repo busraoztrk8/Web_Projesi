@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haftalık Planlayıcı - WhispDiary</title>
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Dosyaları -->
+    <link rel="stylesheet" href="../src/assets/index.css"> <!-- Ana stiller (güncellenmiş olabilir) -->
+    <link rel="stylesheet" href="../src/assets/todolist.css"> <!-- Bu dosya güncellenecek -->
+    <!-- İkonlar için Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Header (ID Eklendi) -->
+    <header id="main-header">
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">ANASAYFA</a></li>
+                <li><a href="pomodoro.html" class="nav-link">POMODORO</a></li>
+                <li><a href="todolist.html" class="nav-link active" aria-current="page">HAFTALIK PLANLAYICI</a></li>
+            </ul>
+        </nav>
+        <div class="header-controls">
+            <div class="color-picker-container">
+                <button id="bg-color-picker-toggle" class="theme-button" aria-label="Arka Plan Rengini Seç"><i class="fas fa-fill-drip"></i></button>
+                <div id="bg-color-picker-popover" class="color-picker-popover card">
+                     <label for="custom-bg-color-input">Arka Plan & Header Rengi:</label>
+                     <input type="color" id="custom-bg-color-input" value="#f8f9fa">
+                     <button id="reset-bg-color-button" class="button secondary small">Temaya Sıfırla</button>
+                </div>
+            </div>
+            <button id="theme-toggle" class="theme-button" aria-label="Temayı Değiştir"><i class="fas fa-moon"></i></button>
+            <div id="user-profile" class="profile-icon" role="button" tabindex="0" aria-label="Kullanıcı Profili"><i class="fas fa-user"></i></div>
+             <button id="logout-button" class="logout-button" aria-label="Çıkış Yap"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+    </header>
+    <!-- Header Sonu -->
+
+    <main class="weekly-planner-container">
+        <!-- Ana Başlık (Animasyon Eklendi) -->
+        <h2 class="planner-title animated fadeInDown"><i class="fas fa-calendar-week title-icon"></i> Haftalık Planlayıcı</h2>
+
+        <!-- Gün Grid'i (Animasyon Eklendi) -->
+        <div class="days-grid animated fadeInUp" id="days-grid-container">
+            <!-- Pazartesi (Animasyon Eklendi) -->
+            <div class="day-column card animated fadeInUp delay-1" data-day="monday">
+                <h3><i class="fas fa-mug-hot day-icon"></i> Pazartesi</h3> <!-- İkon değişti -->
+                <form class="add-task-form" novalidate>
+                    <input type="text" class="new-task-input" placeholder="Yeni görev ekle..." aria-label="Pazartesi için yeni görev" required>
+                    <button type="submit" class="add-task-button button primary small" disabled aria-label="Pazartesi görev ekle"><i class="fas fa-plus-circle"></i> Ekle</button> <!-- İkon değişti -->
+                </form>
+                <ul class="task-list">
+                     <li class="no-tasks-placeholder" style="display: none;"><i class="fas fa-clipboard-list placeholder-icon"></i><p>Bugün için görev yok!</p></li> <!-- İkon değişti -->
+                </ul>
+            </div>
+            <!-- Salı (Animasyon Eklendi) -->
+            <div class="day-column card animated fadeInUp delay-2" data-day="tuesday">
+                <h3><i class="fas fa-briefcase day-icon"></i> Salı</h3> <!-- İkon değişti -->
+                <form class="add-task-form" novalidate>
+                    <input type="text" class="new-task-input" placeholder="Yeni görev ekle..." aria-label="Salı için yeni görev" required>
+                    <button type="submit" class="add-task-button button primary small" disabled aria-label="Salı görev ekle"><i class="fas fa-plus-circle"></i> Ekle</button>
+                </form>
+                <ul class="task-list">
+                     <li class="no-tasks-placeholder" style="display: none;"><i class="fas fa-clipboard-list placeholder-icon"></i><p>Bugün için görev yok!</p></li>
+                </ul>
+            </div>
+            <!-- Çarşamba (Animasyon Eklendi) -->
+             <div class="day-column card animated fadeInUp delay-3" data-day="wednesday">
+                <h3><i class="fas fa-laptop-code day-icon"></i> Çarşamba</h3> <!-- İkon değişti -->
+                <form class="add-task-form" novalidate>
+                    <input type="text" class="new-task-input" placeholder="Yeni görev ekle..." aria-label="Çarşamba için yeni görev" required>
+                    <button type="submit" class="add-task-button button primary small" disabled aria-label="Çarşamba görev ekle"><i class="fas fa-plus-circle"></i> Ekle</button>
+                </form>
+                <ul class="task-list">
+                     <li class="no-tasks-placeholder" style="display: none;"><i class="fas fa-clipboard-list placeholder-icon"></i><p>Bugün için görev yok!</p></li>
+                </ul>
+            </div>
+            <!-- Perşembe (Animasyon Eklendi) -->
+             <div class="day-column card animated fadeInUp delay-4" data-day="thursday">
+                <h3><i class="fas fa-book-open day-icon"></i> Perşembe</h3> <!-- İkon değişti -->
+                <form class="add-task-form" novalidate>
+                    <input type="text" class="new-task-input" placeholder="Yeni görev ekle..." aria-label="Perşembe için yeni görev" required>
+                    <button type="submit" class="add-task-button button primary small" disabled aria-label="Perşembe görev ekle"><i class="fas fa-plus-circle"></i> Ekle</button>
+                </form>
+                <ul class="task-list">
+                     <li class="no-tasks-placeholder" style="display: none;"><i class="fas fa-clipboard-list placeholder-icon"></i><p>Bugün için görev yok!</p></li>
+                </ul>
+            </div>
+            <!-- Cuma (Animasyon Eklendi) -->
+             <div class="day-column card animated fadeInUp delay-5" data-day="friday">
+                <h3><i class="fas fa-glass-cheers day-icon"></i> Cuma</h3> <!-- İkon değişti -->
+                <form class="add-task-form" novalidate>
+                    <input type="text" class="new-task-input" placeholder="Yeni görev ekle..." aria-label="Cuma için yeni görev" required>
+                    <button type="submit" class="add-task-button button primary small" disabled aria-label="Cuma görev ekle"><i class="fas fa-plus-circle"></i> Ekle</button>
+                </form>
+                <ul class="task-list">
+                     <li class="no-tasks-placeholder" style="display: none;"><i class="fas fa-clipboard-list placeholder-icon"></i><p>Bugün için görev yok!</p></li>
+                </ul>
+            </div>
+            <!-- Cumartesi (Animasyon Eklendi) -->
+             <div class="day-column card animated fadeInUp delay-6" data-day="saturday">
+                <h3><i class="fas fa-shopping-bag day-icon"></i> Cumartesi</h3> <!-- İkon değişti -->
+                <form class="add-task-form" novalidate>
+                    <input type="text" class="new-task-input" placeholder="Yeni görev ekle..." aria-label="Cumartesi için yeni görev" required>
+                    <button type="submit" class="add-task-button button primary small" disabled aria-label="Cumartesi görev ekle"><i class="fas fa-plus-circle"></i> Ekle</button>
+                </form>
+                <ul class="task-list">
+                     <li class="no-tasks-placeholder" style="display: none;"><i class="fas fa-clipboard-list placeholder-icon"></i><p>Bugün için görev yok!</p></li>
+                </ul>
+            </div>
+            <!-- Pazar (Animasyon Eklendi) -->
+             <div class="day-column card animated fadeInUp delay-7" data-day="sunday">
+                <h3><i class="fas fa-bed day-icon"></i> Pazar</h3> <!-- İkon değişti -->
+                <form class="add-task-form" novalidate>
+                    <input type="text" class="new-task-input" placeholder="Yeni görev ekle..." aria-label="Pazar için yeni görev" required>
+                    <button type="submit" class="add-task-button button primary small" disabled aria-label="Pazar görev ekle"><i class="fas fa-plus-circle"></i> Ekle</button>
+                </form>
+                <ul class="task-list">
+                     <li class="no-tasks-placeholder" style="display: none;"><i class="fas fa-clipboard-list placeholder-icon"></i><p>Bugün için görev yok!</p></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scriptler (Değişiklik Yok) -->
+    <script src="../src/index.js"></script> <!-- Header vs. için -->
+    <script src="../src/todolist.js"></script> <!-- Todolist mantığı için -->
+</body>
+</html>

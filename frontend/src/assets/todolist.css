@@ -1,0 +1,256 @@
+/* ../src/assets/todolist.css */
+
+/* --- Genel Planlayıcı Konteyner Stilleri --- */
+.weekly-planner-container {
+    padding: 2.5rem; /* Çerçeve boşluğu */
+    max-width: 1550px; /* Max genişlik */
+    /* === HEADER KAYMASI ÖNLEME: Header yüksekliği kadar üst boşluk === */
+    /* index.js body'ye padding-top ekliyor, bu yüzden main'e de margin ekleyebiliriz */
+    margin: 3rem auto 2rem auto; /* Üst(header altı)-sağ/sol(oto)-alt */
+}
+
+/* Planlayıcı Başlığı */
+.planner-title {
+    text-align: center;
+    margin-bottom: 3.5rem; /* Başlık altı boşluk */
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    /* Animasyon (index.css'den gelebilir ama burada da tanımlayalım) */
+    opacity: 0;
+    animation: fadeInDown 0.6s ease-out forwards;
+}
+.title-icon { font-size: 0.9em; opacity: 0.8; }
+
+/* --- Gün Grid'i (Tam Olarak 3 Sütun ve Belirgin Boşluk) --- */
+.days-grid {
+    display: grid;
+    /* === 3 SÜTUN ZORUNLU === */
+    grid-template-columns: repeat(3, 1fr); /* Eşit genişlikte 3 sütun */
+    /* === BELİRGİN BOŞLUK === */
+    gap: 2.5rem; /* Sütunlar ve satırlar arası boşluk (ayarlayabilirsiniz) */
+    /* Grid'in kendisine giriş animasyonu */
+    opacity: 0;
+    animation: fadeInUp 0.5s 0.2s ease-out forwards; /* 0.2s gecikmeyle */
+}
+
+/* --- Gün Sütunu Kart Stilleri (Görsel İyileştirmelerle) --- */
+.day-column.card {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(160deg, var(--card-bg-color) 85%, color-mix(in srgb, var(--card-bg-color) 90%, var(--primary-color) 10%) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-large, 15px);
+    box-shadow: 0 10px 30px rgba(var(--shadow-rgb, 0, 0, 0), 0.09);
+    padding: 2.2rem 2rem;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+                border-color 0.3s ease;
+    min-height: 500px; /* Minimum yükseklik */
+    position: relative;
+    overflow: hidden;
+    border-top: none; /* Üst border yerine pseudo element */
+    /* Kartlara tek tek animasyon */
+    opacity: 0; /* Başlangıçta görünmez */
+    animation: fadeInUp 0.6s ease-out forwards; /* Animasyon adı */
+}
+/* Kartların Gecikmeli Girişi İçin (HTML'deki delay class'larına göre) */
+.day-column.card.delay-1 { animation-delay: 0.1s; }
+.day-column.card.delay-2 { animation-delay: 0.2s; }
+.day-column.card.delay-3 { animation-delay: 0.3s; }
+.day-column.card.delay-4 { animation-delay: 0.4s; }
+.day-column.card.delay-5 { animation-delay: 0.5s; }
+.day-column.card.delay-6 { animation-delay: 0.6s; }
+.day-column.card.delay-7 { animation-delay: 0.7s; }
+
+/* Kart Üst Vurgu */
+.day-column.card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 7px;
+    background: linear-gradient(90deg, var(--primary-color), color-mix(in srgb, var(--primary-color) 50%, var(--secondary-color) 50%));
+    border-top-left-radius: var(--border-radius-large, 15px); border-top-right-radius: var(--border-radius-large, 15px);
+    opacity: 0.8; transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+/* Kart Hover */
+.day-column.card:hover {
+    transform: translateY(-8px) scale(1.02); /* Daha az scale */
+    box-shadow: 0 15px 35px rgba(var(--shadow-rgb, 0, 0, 0), 0.15);
+    border-color: var(--primary-color);
+}
+.day-column.card:hover::before { height: 8px; opacity: 1; }
+
+/* Gün Başlığı */
+.day-column h3 {
+    display: flex; align-items: center; gap: 0.9rem; font-size: 1.5rem; font-weight: 600;
+    color: var(--heading-color, var(--text-color)); margin: 0 0 2.2rem 0; padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-light-color, var(--border-color));
+}
+.day-icon { color: var(--primary-color); font-size: 1.1em; opacity: 0.9; width: 25px; text-align: center; transition: transform 0.3s ease; }
+.day-column.card:hover .day-icon { transform: rotate(-10deg) scale(1.1); }
+
+/* --- Görev Ekleme Formu --- */
+.add-task-form { /* ... önceki stiller aynı ... */
+    display: flex; gap: 0.8rem; margin-bottom: 2.2rem; position: relative;
+}
+.add-task-form .new-task-input { /* ... önceki stiller aynı ... */
+    flex-grow: 1; padding: 0.9rem 1.2rem; font-size: 1rem; border-radius: var(--border-radius-medium);
+    border: 1px solid var(--border-color); background-color: var(--input-bg); color: var(--text-color);
+    transition: all 0.25s ease; outline: none;
+}
+.add-task-form .new-task-input:focus { /* ... önceki stiller aynı ... */
+    border-color: var(--primary-color); background-color: var(--card-bg-color);
+    box-shadow: 0 0 0 4px var(--primary-light-color, rgba(74, 144, 226, 0.3));
+}
+.add-task-form .new-task-input::placeholder { color: var(--text-muted); opacity: 0.8; }
+.add-task-form .add-task-button { /* ... önceki stiller aynı ... */
+    flex-shrink: 0; padding: 0.9rem 1.2rem; font-size: 0.9rem; transition: all 0.2s ease;
+}
+.add-task-form .add-task-button:disabled { /* ... önceki stiller aynı ... */
+    background-color: var(--text-muted); opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none;
+}
+.add-task-form .add-task-button:not(:disabled):active { transform: scale(0.96); }
+.add-task-button i { font-size: 1.1em; }
+
+/* --- Görev Listesi --- */
+.task-list { list-style: none; padding: 0; margin: 0; flex-grow: 1; position: relative; min-height: 200px; }
+
+/* Boş Liste Placeholder */
+.no-tasks-placeholder { /* ... önceki stiller aynı ... */
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    color: var(--text-muted); position: absolute; inset: 15px; opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none; background-color: rgba(var(--shadow-rgb, 0,0,0), 0.03); border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius-medium); transform: scale(0.95);
+}
+body.dark-theme .no-tasks-placeholder { background-color: rgba(var(--shadow-rgb, 255,255,255), 0.04); border-color: var(--dark-border-color); }
+.no-tasks-placeholder.visible { opacity: 0.8; transform: scale(1); }
+.placeholder-icon { font-size: 4rem; margin-bottom: 1.5rem; color: var(--primary-color); opacity: 0.5; }
+.no-tasks-placeholder p { font-size: 1.1rem; font-weight: 500; }
+
+/* --- Tek Görev Öğesi --- */
+.task-list li.task-item { /* ... önceki stiller (sol border dahil) aynı ... */
+    display: flex; align-items: flex-start; gap: 1.1rem; padding: 1.2rem 1rem; margin-bottom: 1rem;
+    border-radius: var(--border-radius-medium); background-color: var(--background-color);
+    border: 1px solid var(--border-light-color, var(--border-color)); transition: all 0.3s ease;
+    position: relative; overflow: hidden; border-left: 5px solid transparent;
+}
+.task-list li.task-item:not(.completed) { border-left-color: var(--secondary-color); }
+.task-list li.task-item:hover:not(.editing) { /* ... önceki stiller aynı ... */
+    border-color: var(--primary-color); background-color: var(--card-bg-color);
+    transform: translateY(-4px) scale(1.02); box-shadow: 0 6px 15px var(--shadow-soft);
+    border-left-color: var(--primary-color);
+}
+
+/* Görev Animasyonları */
+.task-item.newly-added { animation: slideInFade 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+@keyframes slideInFade { from { opacity: 0; transform: translateX(-25px); } to { opacity: 1; transform: translateX(0); } }
+.task-item.removing { transition: all 0.4s ease-out; opacity: 0; transform: translateX(30px) scale(0.9); height: 0; padding: 0; margin-bottom: 0; border-width: 0; }
+
+/* Görev İçeriği, Checkbox, Metin */
+.task-content { flex-grow: 1; display: flex; align-items: flex-start; gap: 1.1rem; cursor: pointer; padding-top: 2px; }
+.task-checkbox { flex-shrink: 0; cursor: pointer; accent-color: var(--primary-color); width: 22px; height: 22px; margin-top: 3px; transform: scale(1.1); }
+.task-text { flex-grow: 1; font-size: 1.05rem; line-height: 1.6; word-break: break-word; color: var(--text-color); transition: all 0.3s ease; font-weight: 500; }
+
+/* Görev Aksiyonları */
+.task-actions { /* ... önceki stiller aynı (mobilde görünürlük hariç) ... */
+    display: flex; gap: 0.6rem; flex-shrink: 0; opacity: 0; transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none; margin-left: auto; align-self: flex-start; padding-top: 2px; transform: translateX(10px);
+}
+.task-list li.task-item:hover:not(.editing) .task-actions,
+.task-list li.task-item:focus-within:not(.editing) .task-actions { opacity: 1; pointer-events: auto; transform: translateX(0); }
+.task-list li.task-item.editing .task-actions { display: none; }
+
+/* İkon Butonları */
+.button.icon-button { /* ... önceki stiller aynı ... */
+    padding: 0.6rem; font-size: 1rem; background-color: transparent; border: none; color: var(--text-muted);
+    border-radius: 50%; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;
+    opacity: 0.8; transition: all 0.25s ease;
+}
+.button.icon-button:hover { /* ... önceki stiller aynı ... */
+    opacity: 1; background-color: var(--border-light-color); color: var(--text-color); transform: scale(1.18) rotate(5deg);
+}
+body.dark-theme .button.icon-button:hover { background-color: var(--dark-input-bg); }
+
+/* --- Düzenleme Modu --- */
+.task-item.editing { /* ... önceki stiller aynı ... */
+    background-color: color-mix(in srgb, var(--background-color) 80%, var(--primary-color) 20%); border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px var(--primary-light-color, rgba(74, 144, 226, 0.4)), 0 6px 15px var(--shadow-soft);
+    border-left-color: var(--primary-color);
+}
+.task-item.editing .task-content { display: none; }
+.task-item.editing .edit-task-input-container { display: flex; }
+.edit-task-input-container { display: none; flex-grow: 1; align-items: center; gap: 0.8rem; }
+.edit-task-input { /* ... önceki stiller aynı ... */
+    flex-grow: 1; padding: 0.8rem 1rem; font-size: 1.05rem; line-height: 1.6; border: 1px solid var(--primary-color);
+    background-color: var(--card-bg-color); outline: none; color: var(--text-color); border-radius: var(--border-radius-small); font-weight: 500;
+}
+.edit-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+
+/* --- Tamamlanmış Görevler --- */
+.task-list li.task-item.completed { /* ... önceki stiller aynı (dalgalı çizgi dahil) ... */
+    opacity: 0.65; background-color: transparent; border-color: var(--border-light-color);
+    border-left: 5px solid var(--success-color); box-shadow: none; padding-left: calc(1rem - 5px + 1px);
+}
+body.dark-theme .task-list li.task-item.completed { border-left-color: var(--dark-success-color); }
+.task-list li.task-item.completed:hover { /* ... önceki stiller aynı ... */
+    opacity: 0.75; transform: none; box-shadow: none; background-color: rgba(var(--shadow-rgb, 0,0,0), 0.02);
+    border-color: var(--border-light-color); border-left-color: var(--success-color);
+}
+body.dark-theme .task-list li.task-item.completed:hover { background-color: rgba(var(--shadow-rgb, 255,255,255), 0.03); border-left-color: var(--dark-success-color); }
+.task-list li.task-item.completed .task-content { cursor: default; }
+.task-list li.task-item.completed .task-text {
+    text-decoration: line-through wavy color-mix(in srgb, var(--text-muted) 80%, transparent 20%);
+    color: var(--text-muted); font-style: italic; font-weight: 400;
+}
+.task-list li.task-item.completed .task-checkbox { opacity: 0.7; transform: scale(1); }
+.task-list li.task-item.completed .task-actions .edit-task-button { display: none; }
+
+/* --- ANİMASYONLAR --- */
+.animated { opacity: 0; animation-fill-mode: forwards; animation-duration: 0.6s; animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); }
+.fadeInDown { animation-name: fadeInDown; animation-duration: 0.5s; }
+.fadeInUp { animation-name: fadeInUp; }
+/* Delay class'ları HTML'de tanımlı */
+
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-25px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(35px); } to { opacity: 1; transform: translateY(0); } }
+
+
+/* --- RESPONSIVE AYARLAMALAR --- */
+/* Tabletler (~768px - ~1024px) - 2 Sütun */
+@media (max-width: 1024px) {
+    .days-grid {
+        /* === TABLETTE 2 SÜTUN === */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    .weekly-planner-container { padding: 2rem; margin-top: 2rem; }
+    .planner-title { font-size: 2.4rem; margin-bottom: 3rem; }
+    .day-column.card { padding: 2rem 1.8rem; min-height: 480px; }
+}
+
+/* Mobil Cihazlar (< 768px) - 1 Sütun */
+@media (max-width: 767.98px) {
+    .days-grid {
+        /* === MOBİLDE 1 SÜTUN === */
+        grid-template-columns: 1fr; /* Sütunları alt alta diz */
+        gap: 2rem; /* Dikey boşluk */
+    }
+    .weekly-planner-container { padding: 1.5rem 1rem; margin-top: 1.5rem; }
+    .planner-title { font-size: 2rem; margin-bottom: 2.5rem; flex-direction: column; gap: 0.5rem; }
+    .day-column.card { padding: 1.8rem 1.5rem; min-height: auto; box-shadow: 0 8px 20px rgba(var(--shadow-rgb, 0, 0, 0), 0.08); }
+    .day-column.card:hover { transform: none; box-shadow: 0 8px 20px rgba(var(--shadow-rgb, 0, 0, 0), 0.08); } /* Mobil hover iptal */
+    .day-column.card:hover::before { height: 7px; opacity: 0.8; } /* Mobil hover iptal */
+     .day-column h3 { font-size: 1.3rem; }
+    .add-task-form .new-task-input, .add-task-form .add-task-button { padding: 0.8rem 1rem; font-size: 0.95rem;}
+    .task-list li.task-item { padding: 1rem 0.9rem; }
+    .task-list li.task-item:hover:not(.editing) { transform: none; box-shadow: none; } /* Mobil hover iptal */
+    .task-text { font-size: 1rem; }
+    .button.icon-button { width: 36px; height: 36px; font-size: 0.9rem; }
+    .task-checkbox { width: 20px; height: 20px; }
+    /* === Mobilde Aksiyonları Göster === */
+    .task-actions { transform: none; opacity: 1; pointer-events: auto; }
+}
