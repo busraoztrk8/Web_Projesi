@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhispDiary - Günlük Oluştur</title>
+    <!-- Google Font (Inter) - Daha modern bir görünüm için -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN (İkonlar için) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Güncellenmiş dairy.css -->
+    <link rel="stylesheet" href="../src/assets/diary.css">
+</head>
+<body id="diary-body"> <!-- Sayfa rengi için ID -->
+
+    <header class="app-header">
+        <div class="header-left">
+            <!-- Geri Dön Butonu (İkon Değişti) -->
+            <a href="index.html" class="icon-button back-button" aria-label="Anasayfaya Dön">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+             <!-- Başlık ve İkonu -->
+             <h1><i class="fas fa-book-open header-title-icon"></i> Günlük Oluştur</h1>
+        </div>
+        <div class="header-right">
+             <!-- Ses Kayıt Butonları (İkonlar güncellendi, tooltip eklendi) -->
+             <button id="start-recording" class="icon-button" aria-label="Kaydı Başlat" title="Ses Kaydı Başlat">
+                 <i class="fas fa-microphone-alt"></i> <!-- Daha modern mikrofon ikonu -->
+             </button>
+             <button id="stop-recording" class="icon-button" aria-label="Kaydı Durdur" title="Kaydı Durdur" disabled>
+                 <i class="fas fa-stop-circle"></i> <!-- Durdurma ikonu -->
+             </button>
+             <button id="save-audio" class="icon-button" aria-label="Ses Kaydını Kaydet" title="Sesi Günlüğe Ekle" disabled>
+                 <i class="fas fa-check-circle"></i> <!-- Onay/Kaydet ikonu -->
+             </button>
+             <button id="cancel-recording" class="icon-button" aria-label="Kaydı İptal Et" title="Kaydı İptal Et" disabled>
+                 <i class="fas fa-times-circle"></i> <!-- İptal ikonu -->
+             </button>
+             <!-- Ses çalmak için gizli element (Görünür yapıp stil verebiliriz) -->
+             <audio id="audio-playback" controls style="display: none; vertical-align: middle; margin-left: 10px; height: 35px;"></audio>
+             <span id="recording-status" style="font-size: 0.9em; margin-left: 10px; opacity: 0.8; display: none;">Kaydediliyor...</span> <!-- Kayıt durumu göstergesi -->
+        </div>
+    </header>
+
+    <!-- Ana İçerik Alanı (Yeni Class) -->
+    <main class="diary-main-content">
+        <!-- Editör Araç Çubuğu (Animasyonlu) -->
+        <div class="editor-toolbar card animated fadeInDown">
+            <!-- Font Seçimi -->
+            <select id="font-family-select" aria-label="Yazı Tipi" title="Yazı Tipi">
+                <option value="'Inter', sans-serif">Inter (Varsayılan)</option>
+                <option value="'Roboto', sans-serif">Roboto</option>
+                <option value="'Open Sans', sans-serif">Open Sans</option>
+                <option value="'Lato', sans-serif">Lato</option>
+                <option value="'Montserrat', sans-serif">Montserrat</option>
+                <option value="'Nunito', sans-serif">Nunito</option>
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="Verdana, sans-serif">Verdana</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="Times New Roman, serif">Times New Roman</option>
+                <option value="Courier New, monospace">Courier New</option>
+            </select>
+
+            <!-- Font Boyutu -->
+            <select id="font-size-select" aria-label="Yazı Boyutu" title="Yazı Boyutu">
+                <option value="1">8pt</option>
+                <option value="2">10pt</option>
+                <option value="3" selected>12pt</option>
+                <option value="4">14pt</option>
+                <option value="5">18pt</option>
+                <option value="6">24pt</option>
+                <option value="7">36pt</option>
+            </select>
+
+            <!-- Font Rengi (İkonlu Label) -->
+            <label for="font-color-picker" class="toolbar-label" title="Yazı Rengi">
+                 <i class="fas fa-palette"></i>
+                 <input type="color" id="font-color-picker" value="#333333">
+            </label>
+
+            <!-- Stil Butonları -->
+            <button class="toolbar-button" data-command="bold" aria-label="Kalın" title="Kalın"><i class="fas fa-bold"></i></button>
+            <button class="toolbar-button" data-command="italic" aria-label="İtalik" title="İtalik"><i class="fas fa-italic"></i></button>
+            <button class="toolbar-button" data-command="underline" aria-label="Altı Çizili" title="Altı Çizili"><i class="fas fa-underline"></i></button>
+
+            <!-- Sayfa Rengi (İkonlu Label) -->
+             <label for="page-color-picker" class="toolbar-label" title="Sayfa Arka Plan Rengi">
+                <i class="fas fa-fill-drip"></i>
+                <input type="color" id="page-color-picker" value="#f8f9fa"> <!-- Başlangıç rengi body ile uyumlu -->
+             </label>
+        </div>
+
+        <!-- Günlük Giriş Alanı (Animasyonlu ve Kart Görünümlü) -->
+        <section class="diary-entry card animated fadeInUp delay-1">
+             <!-- Başlık Alanı -->
+            <input type="text" id="diary-title" placeholder="Günün Başlığı..." aria-label="Günlük Başlığı">
+
+            <!-- Düzenlenebilir İçerik Alanı -->
+            <div id="diary-content" contenteditable="true" class="editable-content" aria-label="Günlük İçeriği" placeholder="Bugün aklından neler geçiyor? Dilersen mikrofon ikonuna tıklayarak sesini de kaydedebilirsin..."></div>
+
+            <!-- Butonlar (Gruplanmış) -->
+            <div class="entry-buttons">
+                <button id="save-diary" class="button primary">
+                    <i class="fas fa-save"></i> Günlüğü Kaydet
+                </button>
+                <button id="analyze-sentiment-button" class="button secondary" title="Duygu Analizi Yap">
+                    <i class="fas fa-brain"></i> Analiz Et
+                </button>
+            </div>
+            <!-- Analiz Sonucu (Yerinde Gösterim - Opsiyonel) -->
+            <div id="sentiment-result" class="sentiment-result-inline"></div>
+            <!-- AI Önerisi (Yerinde Gösterim - Opsiyonel, JS'de oluşturuluyor) -->
+            <div id="ai-recommendation" class="ai-recommendation-inline"></div>
+        </section>
+
+        <!-- Kayıtlı Günlükler Bölümü (Animasyonlu ve Kart Görünümlü) -->
+        <section class="diary-list card animated fadeInUp delay-2">
+            <h2><i class="fas fa-archive list-title-icon"></i> Kayıtlı Günlüklerim</h2>
+            <ul id="diary-entries">
+                <!-- Placeholder -->
+                <li class="no-entries-placeholder">
+                    <i class="fas fa-book-reader placeholder-icon"></i>Henüz günlük eklenmedi.
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Analiz Modalı (Animasyonlu İçerik) -->
+    <div id="analysis-modal" class="modal-overlay"> <!-- JS ile display: none yerine class ile yönetilecek -->
+        <div class="modal-content animated fadeInScale"> <!-- Modal içeriğine animasyon -->
+            <button id="close-modal-button" class="modal-close-button" aria-label="Kapat">×</button>
+            <h2><i class="fas fa-lightbulb modal-title-icon"></i> Analiz Sonuçları ve Plan</h2>
+            <div id="modal-loading" style="text-align: center; padding: 20px;">
+                <p><i class="fas fa-spinner fa-spin"></i> Analiz ediliyor ve plan oluşturuluyor...</p>
+            </div>
+            <div id="modal-results" style="display: none;">
+                <!-- Duygu Sonucu (Daha belirgin) -->
+                <div id="modal-sentiment-result" class="modal-sentiment-display">
+                    <!-- JS ile doldurulacak -->
+                </div>
+                 <!-- Plan Bölümü -->
+                <div id="modal-ai-plan">
+                    <h3><i class="fas fa-clipboard-list"></i> Kişisel Planın:</h3>
+                    <div id="modal-plan-content" class="modal-plan-box">
+                        <!-- JS ile doldurulacak -->
+                    </div>
+                </div>
+            </div>
+             <!-- Hata Bölümü (Daha belirgin) -->
+            <div id="modal-error" class="modal-error-display" style="display: none;">
+                <!-- JS ile doldurulacak -->
+            </div>
+        </div>
+    </div>
+    <!-- Modal Sonu -->
+
+    <!-- Footer (Yeni Class ve İkon) -->
+    <footer class="app-footer">
+        <p><i class="far fa-copyright"></i> 2025 WhispDiary. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <!-- Güncellenmiş diary.js -->
+    <script src="../src/diary.js"></script>
+</body>
+</html>
