@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhispDiary - Profilim</title>
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Dosyaları -->
+    <link rel="stylesheet" href="../src/assets/index.css"> <!-- Genel Stiller (varsa) -->
+    <link rel="stylesheet" href="../src/assets/profil.css"> <!-- Profil Sayfası Stilleri -->
+    <!-- İkonlar için Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="bubbles-background">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble variant2"></div> <!-- Farklı animasyon için örnek -->
+        <div class="bubble"></div>
+        <div class="bubble variant2"></div> <!-- Farklı animasyon için örnek -->
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+    <!-- === Header (index.html'den kopyalanabilir veya template kullanılabilir) === -->
+    <header id="main-header">
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">ANASAYFA</a></li>
+                <li><a href="pomodoro.html" class="nav-link">POMODORO</a></li>
+                <li><a href="todolist.html" class="nav-link">HAFTALIK PLANLAYICI</a></li>
+                 <!-- Profil linkini aktif yap (JS ile de yapılabilir) -->
+                 <li><a href="profil.html" class="nav-link active" aria-current="page">PROFİL</a></li>
+            </ul>
+        </nav>
+        <div class="header-controls">
+            <!-- Renk Seçici (index.html'den kopyalanabilir) -->
+            <div class="color-picker-container">
+                <button id="bg-color-picker-toggle" class="theme-button" aria-label="Arka Plan Rengini Seç">
+                    <i class="fas fa-fill-drip"></i>
+                </button>
+                <div id="bg-color-picker-popover" class="color-picker-popover card">
+                     <label for="custom-bg-color-input">Arka Plan & Header Rengi:</label>
+                     <input type="color" id="custom-bg-color-input" value="#f8f9fa">
+                     <button id="reset-bg-color-button" class="button secondary small">Temaya Sıfırla</button>
+                </div>
+            </div>
+            <!-- Tema Değiştirici (index.html'den kopyalanabilir) -->
+            <button id="theme-toggle" class="theme-button" aria-label="Temayı Değiştir">
+                <i class="fas fa-moon"></i>
+            </button>
+            <!-- Profil İkonu (Zaten profil sayfasındayız, kaldırılabilir veya farklı işlev) -->
+            <!-- <div id="user-profile" class="profile-icon" role="button" tabindex="0" aria-label="Kullanıcı Profili">
+                <i class="fas fa-user"></i>
+            </div> -->
+             <!-- Çıkış -->
+             <button id="logout-button" class="logout-button" aria-label="Çıkış Yap">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content-area profile-page">
+        <div class="profile-container card animated fadeIn">
+            <h2><i class="fas fa-user-edit"></i> Profil Bilgileri</h2>
+            <p class="profile-description">Hesap bilgilerinizi buradan görüntüleyebilir ve güncelleyebilirsiniz.</p>
+
+            <form id="profile-form">
+                <!-- Görüntülenen Ama Düzenlenemeyen Alanlar -->
+                <div class="form-group read-only-group">
+                    <label for="user-id">Kullanıcı ID</label>
+                    <span id="user-id" class="read-only-field">[Yükleniyor...]</span>
+                </div>
+                 <div class="form-group read-only-group">
+                    <label for="kayit-tarihi">Kayıt Tarihi</label>
+                    <span id="kayit-tarihi" class="read-only-field">[Yükleniyor...]</span>
+                </div>
+
+                <hr class="form-divider">
+
+                <!-- Düzenlenebilir Alanlar -->
+                <div class="form-group">
+                    <label for="ad">Ad</label>
+                    <input type="text" id="ad" name="ad" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="soyad">Soyad</label>
+                    <input type="text" id="soyad" name="soyad" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="kullanici-adi">Kullanıcı Adı</label>
+                    <input type="text" id="kullanici-adi" name="kullanici_adi" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="eposta">E-posta</label>
+                    <input type="email" id="eposta" name="eposta" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="dogum-tarihi">Doğum Tarihi</label>
+                    <input type="date" id="dogum-tarihi" name="dogum_tarihi" readonly>
+                </div>
+
+                <hr class="form-divider">
+
+                <!-- Şifre Değiştirme Alanı (Düzenleme modunda görünür) -->
+                <div class="password-section hidden">
+                    <h4><i class="fas fa-key"></i> Şifre Değiştir</h4>
+                    <div class="form-group">
+                        <label for="yeni-sifre">Yeni Şifre</label>
+                        <input type="password" id="yeni-sifre" name="yeni_sifre" placeholder="Yeni şifrenizi girin (min. 6 karakter)">
+                        <small>Değiştirmek istemiyorsanız boş bırakın.</small>
+                    </div>
+                     <div class="form-group">
+                        <label for="yeni-sifre-onay">Yeni Şifre (Tekrar)</label>
+                        <input type="password" id="yeni-sifre-onay" name="yeni_sifre_onay" placeholder="Yeni şifrenizi tekrar girin">
+                    </div>
+                </div>
+
+                 <!-- Geri Bildirim Alanı -->
+                <div id="profile-feedback" class="form-feedback" aria-live="polite"></div>
+
+                <!-- Butonlar -->
+                <div class="profile-actions">
+                    <button type="button" id="edit-button" class="button secondary">
+                        <i class="fas fa-pencil-alt"></i> Düzenle
+                    </button>
+                    <button type="submit" id="save-button" class="button primary hidden">
+                        <i class="fas fa-save"></i> Kaydet
+                    </button>
+                    <button type="button" id="cancel-button" class="button danger-outline hidden">
+                        <i class="fas fa-times"></i> İptal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Ortak JS (Tema, Renk vs.) -->
+     <!--<script src="../src/assets/common.js"></script> Tema, renk seçici vb. ortak işlevleri buraya taşıyın -->
+    <!-- Profile Özel JS -->
+    <script src="../src/profil.js"></script> <!-- Düzeltildi: profil.js dosyası kaldırıldı -->
+    <script src="../src/index.js"></script> <!-- Ortak JS dosyası eklendi -->
+    
+
+</body>
+</html>

@@ -1,0 +1,287 @@
+/* ../src/assets/profil.css */
+
+/* index.css'teki değişkenleri ve temel stilleri miras aldığımızı varsayalım */
+/* Gerekirse @import "../src/assets/index.css"; */
+
+/* Profil sayfası ana konteyneri */
+.profile-page {
+    padding-top: 2rem; /* Header altı boşluk */
+}
+
+.profile-container {
+    max-width: 750px; /* Orta genişlikte bir alan */
+    margin: 0 auto 3rem auto; /* Ortala ve altta boşluk */
+    padding: 2.5rem; /* İç boşluk */
+}
+
+.profile-container h2 {
+    font-size: 1.8rem; /* Ana başlık boyutu */
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--primary-color);
+    border-bottom: none; /* index.css'teki card h3 border'ını kaldır */
+    padding-bottom: 0;
+}
+.profile-container h2 i {
+    color: var(--primary-color);
+}
+
+.profile-description {
+    color: var(--text-muted);
+    margin-bottom: 2.5rem; /* Başlık ve form arası boşluk */
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+#profile-form {
+    display: grid;
+    gap: 1.5rem; /* Form elemanları arası boşluk */
+}
+
+/* Form Grupları ve Labellar */
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-medium);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: all var(--transition-speed) var(--transition-timing);
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: var(--primary-color);
+    background-color: var(--background-color);
+    box-shadow: 0 0 0 3px var(--primary-light-color);
+}
+
+/* Read-Only Alanlar */
+.read-only-group {
+    margin-bottom: 0.8rem; /* Diğerlerine göre daha az boşluk */
+}
+.read-only-field {
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 0.5rem 0; /* Sadece dikey boşluk */
+    display: block;
+}
+.form-group input[readonly] {
+    background-color: var(--border-light-color); /* Farklı arkaplan */
+    cursor: default; /* İmleç normal */
+    opacity: 0.8; /* Biraz soluk */
+}
+body.dark-theme .form-group input[readonly] {
+    background-color: var(--dark-border-light-color);
+}
+.form-group input[readonly]:focus {
+    box-shadow: none; /* Odaklanma efektini kaldır */
+    border-color: var(--border-color); /* Odaklanınca border değişmesin */
+}
+
+
+/* Ayırıcı Çizgi */
+.form-divider {
+    border: none;
+    border-top: 1px solid var(--border-light-color);
+    margin: 1rem 0; /* Üst ve altta boşluk */
+}
+
+/* Şifre Bölümü */
+.password-section {
+    border: 1px solid var(--border-light-color);
+    border-radius: var(--border-radius-medium);
+    padding: 1.5rem;
+    margin-top: 1rem;
+    background-color: rgba(var(--primary-rgb, 74, 144, 226), 0.03); /* Hafif renkli arka plan */
+    transition: all 0.3s ease-out;
+}
+body.dark-theme .password-section {
+     background-color: rgba(74, 144, 226, 0.08);
+     border-color: var(--dark-border-light-color);
+}
+
+.password-section.hidden {
+    display: none; /* Başlangıçta gizli */
+}
+
+.password-section h4 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.1rem;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.form-group small {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 0.5rem;
+}
+
+/* Buton Alanı */
+.profile-actions {
+    margin-top: 1.5rem; /* Üstündeki elemandan boşluk */
+    display: flex;
+    justify-content: flex-end; /* Butonları sağa yasla */
+    gap: 1rem; /* Butonlar arası boşluk */
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light-color);
+}
+
+/* Buton stilleri index.css'ten gelebilir, gelmiyorsa ekleyin */
+/* .button.primary, .button.secondary vs. */
+
+/* Tehlike (İptal) butonu için özel stil */
+.button.danger-outline {
+    background-color: transparent;
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+    box-shadow: none;
+}
+.button.danger-outline:hover {
+    background-color: rgba(var(--danger-rgb), 0.1);
+    color: var(--danger-color);
+}
+body.dark-theme .button.danger-outline {
+     color: var(--dark-danger-color);
+     border-color: var(--dark-danger-color);
+}
+body.dark-theme .button.danger-outline:hover {
+     background-color: rgba(248, 215, 218, 0.15); /* Koyu tema için uygun hover */
+}
+
+
+/* Geri Bildirim Alanı (index.css'teki form-feedback ile aynı olabilir) */
+.form-feedback {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 0; /* Buton alanından önce olduğu için üst boşluk sıfır */
+    margin-bottom: -0.5rem; /* Buton alanına biraz daha yakın */
+    padding: 0.8rem 1.2rem;
+    border-radius: var(--border-radius-medium);
+    min-height: 2em;
+    text-align: center;
+    transition: all 0.3s ease;
+    grid-column: 1 / -1; /* Grid layout kullanıyorsak tüm sütunları kapsa */
+}
+.form-feedback.success { color: var(--success-color); background-color: rgba(var(--success-rgb), 0.1); border: 1px solid rgba(var(--success-rgb), 0.2); }
+.form-feedback.error { color: var(--danger-color); background-color: rgba(var(--danger-rgb), 0.1); border: 1px solid rgba(var(--danger-rgb), 0.2); }
+body.dark-theme .form-feedback.success { background-color: rgba(163, 207, 187, 0.15); border-color: rgba(163, 207, 187, 0.3); }
+body.dark-theme .form-feedback.error { background-color: rgba(248, 215, 218, 0.1); border-color: rgba(248, 215, 218, 0.2); }
+
+/* Gizli elemanlar için utility class */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 1.5rem;
+    }
+    #profile-form {
+        gap: 1.2rem;
+    }
+    .profile-actions {
+       flex-direction: column; /* Butonları alt alta diz */
+       align-items: stretch; /* Butonları tam genişlik yap */
+       gap: 0.8rem;
+    }
+    .button {
+        width: 100%; /* Mobil dikey düzende tam genişlik */
+    }
+}
+/* --- UÇUŞAN BALONCUKLAR --- */
+.bubbles-background {
+    position: fixed; /* Sayfaya göre sabit */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Baloncuklar taşmasın */
+    z-index: 0; /* Diğer içeriklerin arkasında */
+    pointer-events: none; /* Tıklamaları engellemesin */
+}
+
+.bubble {
+    position: absolute;
+    bottom: -150px; /* Ekranın altından başlasın */
+    background-color: rgba(74, 144, 226, 0.3); /* Ana rengin yarı saydam hali */
+    border-radius: 50%;
+    opacity: 0;
+    animation: rise 10s infinite ease-in;
+    box-shadow: 0 0 10px rgba(74, 144, 226, 0.2),
+                inset 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Farklı boyutlarda ve hızlarda baloncuklar */
+.bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 12s; animation-delay: 0s; background-color: rgba(74, 144, 226, 0.2); }
+.bubble:nth-child(2) { width: 20px; height: 20px; left: 20%; animation-duration: 8s;  animation-delay: 1s; background-color: rgba(74, 144, 226, 0.4); }
+.bubble:nth-child(3) { width: 50px; height: 50px; left: 35%; animation-duration: 15s; animation-delay: 2s; }
+.bubble:nth-child(4) { width: 80px; height: 80px; left: 50%; animation-duration: 11s; animation-delay: 0s; background-color: rgba(74, 144, 226, 0.25); }
+.bubble:nth-child(5) { width: 35px; height: 35px; left: 55%; animation-duration: 7s;  animation-delay: 1s; }
+.bubble:nth-child(6) { width: 45px; height: 45px; left: 65%; animation-duration: 13s; animation-delay: 0s; background-color: rgba(74, 144, 226, 0.35); }
+.bubble:nth-child(7) { width: 75px; height: 75px; left: 70%; animation-duration: 9s;  animation-delay: 2.5s; }
+.bubble:nth-child(8) { width: 25px; height: 25px; left: 80%; animation-duration: 6s;  animation-delay: 0.5s; background-color: rgba(74, 144, 226, 0.4); }
+.bubble:nth-child(9) { width: 15px; height: 15px; left: 70%; animation-duration: 10s; animation-delay: 1s; }
+.bubble:nth-child(10) { width: 90px; height: 90px; left: 25%; animation-duration: 14s; animation-delay: 3s; background-color: rgba(74, 144, 226, 0.15); }
+
+@keyframes rise {
+    0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7; /* Yavaşça belirsin */
+    }
+    90% {
+        opacity: 0.3; /* Yavaşça kaybolsun */
+    }
+    100% {
+        transform: translateY(-100vh) translateX(20px) scale(0.8); /* Yukarı çıksın, hafif sağa kaysın ve küçülsün */
+        opacity: 0;
+    }
+}
+
+/* Daha fazla çeşitlilik için ikinci bir animasyon (isteğe bağlı) */
+.bubble.variant2 {
+    animation-name: rise-variant;
+    background-color: rgba(245, 166, 35, 0.2); /* Farklı bir renk (ikincil renk gibi) */
+}
+.bubble:nth-child(odd).variant2 { /* Tek sayılılara farklı renk ve animasyon */
+    background-color: rgba(245, 166, 35, 0.25);
+}
+
+@keyframes rise-variant {
+    0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0;
+    }
+    20% { opacity: 0.6; }
+    80% { opacity: 0.2; }
+    100% {
+        transform: translateY(-100vh) translateX(-30px) scale(0.9); /* Sola doğru kaysın */
+        opacity: 0;
+    }
+}
